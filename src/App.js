@@ -11,7 +11,6 @@ import FormListView from './ui/pages/FormListView';
 import MainPage from './ui/pages/MainPage';
 import ApplianceSubmit from './ui/pages/ApplianceSubmit';
 import Header from './ui/components/header';
-import { useEffect } from 'react';
 
 function App() {
 	

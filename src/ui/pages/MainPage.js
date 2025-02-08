@@ -19,7 +19,7 @@ function MainPage() {
         <M.Title>멋쟁이사자처럼</M.Title>
         <M.Title>13기</M.Title>
         <M.SignupBtn
-          onClick={() => navigate(isLoggedIn ? `/appliance/apply/` : '/signup')}
+          onClick={() => navigate(isLoggedIn ? `/write` : '/signup')}
         >
           {isLoggedIn ? '지원서 작성하기' : '회원가입'}
           <M.ArrowIcon>
