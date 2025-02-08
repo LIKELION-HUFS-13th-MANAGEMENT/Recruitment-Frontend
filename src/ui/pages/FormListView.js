@@ -77,7 +77,9 @@ const FormListView = () => {
 			<Body>
 				<Title>지원서 조회</Title>
 				{isLoading && <LoadingText>로딩중...</LoadingText>}
-				{error && <ErrorText>오류: {error}</ErrorText>}
+				{error && (
+					<ErrorText>오류: 접근 권한이 없습니다</ErrorText>
+				)}
 				{formData.length === 0 && !isLoading && !error && (
 					<NoDataText>데이터가 없습니다</NoDataText>
 				)}
