@@ -31,6 +31,12 @@ const Box = styled.div`
 	align-items: center;
 	gap: 18px;
 	margin-bottom: 5px;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 	@media only screen and (max-width: 600px) {
 		min-width: 80vw;
 		height: 12vw;

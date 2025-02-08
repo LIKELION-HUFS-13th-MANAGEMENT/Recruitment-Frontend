@@ -101,6 +101,12 @@ export default FormListView;
 const ViewPage = styled.div`
 	background: #f2f4f6;
 	min-height: 100vh;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 `;
 
 const Body = styled.div`
@@ -113,7 +119,12 @@ const Body = styled.div`
 	margin: auto;
 	gap: 10px;
 	padding: 20px 0;
-
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 	@media only screen and (max-width: 600px) {
 		width: 80%;
 	}
@@ -130,12 +141,25 @@ const Title = styled.h1`
 	align-self: flex-start;
 	margin-left: 10px;
 	margin-top: 86px;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 `;
 
 const LoadingText = styled.div`
 	color: #666;
 	font-size: 18px;
+	font-family: Pretendard;
 	margin: 20px 0;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 `;
 
 const ErrorText = styled.div`
@@ -143,10 +167,17 @@ const ErrorText = styled.div`
 	font-size: 16px;
 	margin: 20px 0;
 	text-align: center;
+	font-family: Pretendard;
 	padding: 10px;
 	background: #ffe6e6;
 	border-radius: 8px;
 	width: 100%;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 `;
 
 const NoDataText = styled.div`
@@ -154,9 +185,16 @@ const NoDataText = styled.div`
 	font-size: 16px;
 	margin: 20px 0;
 	text-align: center;
+	font-family: Pretendard;
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
 `;
 
-//완성되고 밑에 코드로 변경
+//완성되고 아래 코드로 변경
 
 //import React, { useEffect, useState } from 'react';
 //import ViewBox from '../components/ViewBox';
@@ -292,7 +330,12 @@ const NoDataText = styled.div`
 //	margin: auto;
 //	gap: 10px;
 //	padding: 20px 0;
-
+//	&:lang(en) {
+//		font-family: 'Noto Sans', sans-serif;
+//	}
+//	&:lang(ko) {
+//		font-family: 'Pretendard', sans-serif;
+//	}
 //	@media only screen and (max-width: 600px) {
 //		width: 80%;
 //	}
@@ -309,16 +352,30 @@ const NoDataText = styled.div`
 //	align-self: flex-start;
 //	margin-left: 10px;
 //	margin-top: 86px;
+//	&:lang(en) {
+//		font-family: 'Noto Sans', sans-serif;
+//	}
+//	&:lang(ko) {
+//		font-family: 'Pretendard', sans-serif;
+//	}
 //`;
 
 //const LoadingText = styled.div`
 //	color: #666;
 //	font-size: 18px;
+//	font-family: Pretendard;
 //	margin: 20px 0;
+//	&:lang(en) {
+//		font-family: 'Noto Sans', sans-serif;
+//	}
+//	&:lang(ko) {
+//		font-family: 'Pretendard', sans-serif;
+//	}
 //`;
 
 //const ErrorText = styled.div`
 //	color: #ff0000;
+//	font-family: Pretendard;
 //	font-size: 16px;
 //	margin: 20px 0;
 //	text-align: center;
@@ -326,11 +383,24 @@ const NoDataText = styled.div`
 //	background: #ffe6e6;
 //	border-radius: 8px;
 //	width: 100%;
+//	&:lang(en) {
+//		font-family: 'Noto Sans', sans-serif;
+//	}
+//	&:lang(ko) {
+//		font-family: 'Pretendard', sans-serif;
+//	}
 //`;
 
 //const NoDataText = styled.div`
 //	color: #666;
+//	 font-family: Pretendard;
 //	font-size: 16px;
 //	margin: 20px 0;
 //	text-align: center;
+//	&:lang(en) {
+//		font-family: 'Noto Sans', sans-serif;
+//	}
+//	&:lang(ko) {
+//		font-family: 'Pretendard', sans-serif;
+//	}
 //`;
