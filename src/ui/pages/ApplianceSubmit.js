@@ -1,21 +1,50 @@
-//ApplianceSubmit.js
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useLocation, useParams } from 'react-router-dom';
+import {
+	useLocation,
+	useParams,
+	useNavigate,
+} from 'react-router-dom'; // useNavigate 추가
 
 const ApplianceSubmit = () => {
+	// 상태 관리
 	const [applicationData, setApplicationData] =
 		useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+
+	// 라우터 훅
 	const { id } = useParams();
+	const location = useLocation();
+	const navigate = useNavigate(); // 네비게이션 추가
+
+	// API 설정
 	const API_BASE_URL =
 		'https://woodzverse.pythonanywhere.com';
 	const numericId = Number(id);
 	const API_ENDPOINT = `/appliance/submit/${numericId}/`;
-	const ManagerAccessToken =
-		'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTk1ODI1LCJqdGkiOiI1NWNmN2NmZDhmMzE0OWVjYTlhYTE3NDJmYjM2NThjZCIsInVzZXJfaWQiOjF9.Z7doEVWe6fKcKLXCXJvidgI2zQoNqdoEvqSnkQ0_XHo';
+
+	// location.state에서 전달받은 데이터 추출 (FormListView에서 전달)
+	const { user_fullname = '이름 없음', track } =
+		location.state || {};
+
+	// 디버깅을 위한 로그
+	console.log('Location state:', location.state);
+	console.log('User fullname:', user_fullname);
+	console.log('Track:', track);
+
 	useEffect(() => {
+		// 토큰 확인 로직 추가
+		const userToken = localStorage.getItem('access_token');
+
+		if (!userToken) {
+			alert(
+				'접근 권한이 없습니다. 로그인 후 이용해주세요.'
+			);
+			navigate('/');
+			return;
+		}
+
 		const fetchData = async () => {
 			try {
 				console.log(
@@ -27,7 +56,8 @@ const ApplianceSubmit = () => {
 					`${API_BASE_URL}${API_ENDPOINT}`,
 					{
 						headers: {
-							Authorization: `Bearer ${ManagerAccessToken}`,
+							// ManagerAccessToken 대신 userToken 사용
+							Authorization: `Bearer ${userToken}`,
 						},
 					}
 				);
@@ -39,8 +69,10 @@ const ApplianceSubmit = () => {
 				}
 
 				const data = await response.json();
+				console.log('Received application data:', data);
 				setApplicationData(data);
 			} catch (error) {
+				console.error('Error fetching data:', error);
 				setError(error.message);
 			} finally {
 				setIsLoading(false);
@@ -48,10 +80,7 @@ const ApplianceSubmit = () => {
 		};
 
 		fetchData();
-	}, [id]);
-
-	const location = useLocation();
-	const user_fullname = location.state?.user_fullname;
+	}, [id, navigate, API_ENDPOINT]); // 의존성 배열 수정
 
 	const getTrackName = (track) => {
 		switch (track) {
@@ -76,15 +105,16 @@ const ApplianceSubmit = () => {
 		<ViewPage>
 			<Body>
 				<Title>지원서 상세</Title>
-
 				<QuestionSection>
 					<InfoSection>
 						<InfoSection1>
 							<InfoLabel>
 								이름
+								{/* user_fullname 표시 방식 수정 */}
 								<InfoValue>{user_fullname}</InfoValue>
 							</InfoLabel>
 							<InfoValue>
+								{/* track 정보 표시 방식 수정 */}
 								{getTrackName(applicationData.track)} 파트
 							</InfoValue>
 						</InfoSection1>
@@ -138,12 +168,16 @@ export default ApplianceSubmit;
 const ViewPage = styled.div`
 	background-color: #f2f4f6;
 	min-height: 100vh;
+	width: 100%;
+	overflow-x: hidden;
+	display: flex;
+	justify-content: center;
 `;
 
 const Body = styled.div`
 	display: flex;
 	min-width: 370px;
-	width: 30vw;
+	width: 35vw;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
@@ -159,7 +193,7 @@ const Body = styled.div`
 	}
 
 	@media only screen and (max-width: 600px) {
-		width: 80%;
+		width: 80vw;
 	}
 `;
 
@@ -172,7 +206,7 @@ const Title = styled.h1`
 	font-style: normal;
 	line-height: normal;
 	align-self: flex-start;
-	margin-left: 10px;
+	/*margin-left: 10px;*/
 	margin-top: 86px;
 
 	&:lang(en) {
@@ -191,10 +225,11 @@ const InfoSection = styled.div`
 	margin: 20px 0;
 	display: flex;
 	justify-content: space-between;
+	@media only screen and (max-width: 600px) {
+		width: 100%;
+	}
 `;
-const InfoSection1 = styled.div`
-	/*justify-content: space-around;*/
-`;
+const InfoSection1 = styled.div``;
 
 const InfoLabel = styled.div`
 	display: flex;
@@ -204,6 +239,9 @@ const InfoLabel = styled.div`
 	font-size: 16px;
 	font-weight: 700;
 	margin-bottom: 8px;
+	@media only screen and (max-width: 600px) {
+		width: 76vw;
+	}
 `;
 
 const InfoValue = styled.div`
@@ -218,8 +256,10 @@ const InfoValue = styled.div`
 `;
 
 const QuestionSection = styled.div`
-	width: 100%;
+	width: 80%;
 	display: flex;
+	align-items: center;
+	align-self: center;
 	flex-direction: column;
 	gap: 16px;
 `;
@@ -231,15 +271,23 @@ const Question = styled.div`
 	font-style: normal;
 	font-weight: 700;
 	line-height: normal;
+	min-width: 80vw;
+	width: 82vw;
 	display: flex;
-	align-self: flex-start;
+	align-content: start;
+	align-self: start;
+	margin-left: -20px;
+	@media only screen and (max-width: 600px) {
+		margin-left: -40px;
+		width: 80vw;
+	}
 `;
 
 const Answer = styled.div`
 	border-radius: 14px;
 	background: #fff;
 	display: flex;
-	min-width: 320px;
+	min-width: 340px;
 	width: 100%;
 	height: auto;
 	padding: 18px;
@@ -258,7 +306,7 @@ const Answer = styled.div`
 	}
 
 	@media only screen and (max-width: 600px) {
-		width: 100%;
+		width: 78vw;
 	}
 `;
 
