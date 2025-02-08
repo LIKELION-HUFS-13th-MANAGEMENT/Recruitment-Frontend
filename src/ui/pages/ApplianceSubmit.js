@@ -121,22 +121,45 @@ const ApplianceSubmit = () => {
 					</InfoSection>
 
 					<Question>
-						1. 동아리에 지원하게 된 계기를 작성해 주세요.
+						1. 멋쟁이사자처럼 대학에 지원하시게 된 이유를
+						작성해주세요. (500자 이내)
 					</Question>
 					<Answer>{applicationData.answer1}</Answer>
 
 					<Question>
-						2. 관련 경험이 있다면 작성해 주세요.
+						2. 지원하신 파트를 선택한 이유와 관련된 경험을
+						작성해주세요. (500자 이내)
 					</Question>
 					<Answer>{applicationData.answer2}</Answer>
 
 					<Question>
-						3. 동아리에서 하고 싶은 활동을 작성해 주세요.
+						3. 협업 또는 팀워크 경험과 맡은 역할, 성과를
+						작성해주세요. (500자 이내)
 					</Question>
 					<Answer>{applicationData.answer3}</Answer>
+					<Question>
+						4. (선택사항) 경험을 멋쟁이사자처럼 대학에서
+						어떻게 적용할 수 있을지 작성해주세요. (300자
+						이내)
+					</Question>
+					<Answer>{applicationData.answer4}</Answer>
+					<Question>
+						5. 좋은 개발자란 무엇인지, 그리고 그러한
+						개발자가 되기 위해 어떤 노력을 하고 싶은지
+						작성해주세요. (500자 이내)
+					</Question>
+					<Answer>{applicationData.answer5}</Answer>
 
 					<Question>
-						4. 개발/디자인 관련 블로그나 포트폴리오가 있다면
+						6. 한 주에 몇 시간 정도 활동이 가능하신가요?
+					</Question>
+					<Answer>
+						{applicationData.canSpendTime
+							? '많은 시간 투자 가능'
+							: '많은 시간 투자 불가능'}
+					</Answer>
+					<Question>
+						7. 개발/디자인 관련 블로그나 포트폴리오가 있다면
 						작성해 주세요.
 					</Question>
 					<Answer>
@@ -147,15 +170,6 @@ const ApplianceSubmit = () => {
 						>
 							{applicationData.portfolio}
 						</PortfolioLink>
-					</Answer>
-
-					<Question>
-						5. 한 주에 몇 시간 정도 활동이 가능하신가요?
-					</Question>
-					<Answer>
-						{applicationData.canSpendTime
-							? '활동 가능'
-							: '활동 불가능'}
 					</Answer>
 				</QuestionSection>
 			</Body>
@@ -169,7 +183,6 @@ const ViewPage = styled.div`
 	background-color: #f2f4f6;
 	min-height: 100vh;
 	width: 100%;
-	overflow-x: hidden;
 	display: flex;
 	justify-content: center;
 `;
@@ -184,6 +197,8 @@ const Body = styled.div`
 	margin: auto;
 	gap: 10px;
 	padding: 20px 0;
+	white-space: pre-wrap;
+	word-break: break-word;
 
 	&:lang(en) {
 		font-family: 'Noto Sans', sans-serif;
@@ -221,7 +236,7 @@ const InfoSection = styled.div`
 	width: 100%;
 	background: #212224;
 	border-radius: 14px;
-	padding: 20px;
+	padding: 20px 25px;
 	margin: 20px 0;
 	display: flex;
 	justify-content: space-between;
@@ -270,16 +285,14 @@ const Question = styled.div`
 	font-size: 18px;
 	font-style: normal;
 	font-weight: 700;
-	line-height: normal;
-	min-width: 80vw;
-	width: 82vw;
+	height: auto;
 	display: flex;
 	align-content: start;
 	align-self: start;
 	margin-left: -20px;
 	@media only screen and (max-width: 600px) {
 		margin-left: -40px;
-		width: 80vw;
+		/*width: 80vw;*/
 	}
 `;
 
