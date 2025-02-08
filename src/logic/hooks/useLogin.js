@@ -33,10 +33,12 @@ const useLogin = () => {
       }
 
       // 토큰 저장
+      alert('로그인 성공!');
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
 
       // 로그인 성공 시 메인 페이지로 이동
+
       navigate('/');
     } catch (error) {
       alert(error.message);

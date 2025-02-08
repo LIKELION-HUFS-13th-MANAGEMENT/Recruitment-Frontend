@@ -15,6 +15,7 @@ const Footer = () => {
 export default Footer;
 
 const Footerdiv = styled.div`
+	position: bottom;
 	background: #212224;
 	height: 80px;
 	justify-content: center;
