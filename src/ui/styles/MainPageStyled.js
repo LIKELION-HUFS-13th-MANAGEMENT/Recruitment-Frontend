@@ -11,6 +11,7 @@ export const Body = styled.div`
   background-repeat: no-repeat;
   background-size: 65vh 60vh;
   background-position: 85% center;
+  font-family: 'Pretendard';
 `;
 
 export const Content = styled.div`
@@ -30,7 +31,7 @@ export const SubTitle = styled.h2`
 export const Title = styled.h1`
   color: #ffffff;
   font-size: 48px;
-  font-weight: bold;
+  font-weight: 800;
   margin: 0px;
 `;
 
