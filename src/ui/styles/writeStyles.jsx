@@ -111,6 +111,15 @@ export const SeTitle = styled.div`
     margin-bottom: 1%;
 `;
 
+export const Track = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-left: -4%;
+    margin-bottom: 5%;
+`;
+
+
 export const SeContent = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -126,10 +135,6 @@ export const Choice = styled.label`
     cursor: pointer;
     gap: 6px;
     transition: background-color 0.3s, color 0.3s;
-    &:hover {
-        background-color: #f0f8ff;
-        color: #007bff;
-    }
 `;
 
 export const ChoiceInput = styled.input`
