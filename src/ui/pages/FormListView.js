@@ -15,7 +15,6 @@ const FormListView = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// 🔥 로컬 스토리지에서 access_token 가져오기
 		const userToken = localStorage.getItem('access_token');
 		console.log('User Token:', userToken); // 디버깅용 콘솔 로그
 
@@ -42,7 +41,7 @@ const FormListView = () => {
 			const response = await fetch(
 				`${API_BASE_URL}${API_ENDPOINT}`,
 				{
-					headers: { Authorization: `Bearer ${userToken}` }, //여기서 userToken 사용
+					headers: { Authorization: `Bearer ${userToken}` }, // 🔥 여기서 userToken 사용!
 				}
 			);
 
@@ -61,6 +60,15 @@ const FormListView = () => {
 			setIsLoading(false);
 		}
 	};
+	const handleApplicationClick = (item) => {
+		console.log('Navigating with data:', item); // 네비게이션 데이터 확인
+		navigate(`/appliance/submit/${item.id}`, {
+			state: {
+				user_fullname: item.user_fullname,
+				track: item.track,
+			},
+		});
+	};
 
 	if (!isAuthorized) return null;
 
@@ -69,10 +77,7 @@ const FormListView = () => {
 			<Body>
 				<Title>지원서 조회</Title>
 				{isLoading && <LoadingText>로딩중...</LoadingText>}
-				{error && (
-					<ErrorText>오류: 접근 권한이 없습니다.</ErrorText>
-				)}
-				{/*{error && <ErrorText>오류: {error}</ErrorText>}*/}
+				{error && <ErrorText>오류: {error}</ErrorText>}
 				{formData.length === 0 && !isLoading && !error && (
 					<NoDataText>데이터가 없습니다</NoDataText>
 				)}
@@ -82,9 +87,7 @@ const FormListView = () => {
 						user_fullname={item.user_fullname}
 						track={item.track}
 						created_at={item.created_at}
-						onClick={() =>
-							navigate(`/appliance/submit/${item.id}`)
-						}
+						onClick={() => handleApplicationClick(item)}
 					/>
 				))}
 			</Body>
