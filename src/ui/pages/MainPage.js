@@ -6,7 +6,6 @@ import arrow_icon from '../../assets/images/arrow_icon.png';
 function MainPage() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const userId = localStorage.getItem('user_id');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
