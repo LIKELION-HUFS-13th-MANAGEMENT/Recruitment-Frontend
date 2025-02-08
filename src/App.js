@@ -4,6 +4,7 @@ import Write from './ui/pages/write';
 import SignupPage from './ui/pages/SignupPage';
 import FormListView from './ui/pages/FormListView';
 import MainPage from './ui/pages/MainPage';
+import LoginPage from './ui/pages/LoginPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/write" element={<Write />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/formlistview" element={<FormListView />} />
       </Routes>
     </BrowserRouter>
