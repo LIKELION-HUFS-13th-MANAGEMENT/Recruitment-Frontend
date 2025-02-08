@@ -15,17 +15,18 @@ const Header = () => {
         navigate(`/login`)
     };
 
+
     const handleWrite = () => {
-        navigate(`/write`)
+        navigate(`/write`);
     };
 
     const handleHome = () => {
-        navigate(`/`)
+        navigate(`/`);
     };
 
     return (
         <H.Container>
-            <H.Logo src={Logo} alt="로고" />
+            <H.Logo src={Logo} alt="로고" onClick={handleHome} style={{ cursor: 'pointer' }} />
             <H.MenuContainer>
                 <H.ButtonLogin onClick={() => {token ? handleLogout(token, setIsLogout) : handleLogin()}}>{token ? "로그아웃" : "로그인"} </H.ButtonLogin>
                 <H.ButtonWrite onClick={handleWrite}>지원서 작성하기</H.ButtonWrite>
