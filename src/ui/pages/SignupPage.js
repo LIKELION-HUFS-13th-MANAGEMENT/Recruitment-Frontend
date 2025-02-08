@@ -6,6 +6,11 @@ import dropdown_icon from '../../assets/images/dropdown_icon.png';
 import SignupDropDown from '../components/SignupDropDown';
 import { useSignup } from '../../logic/hooks/useSignup';
 
+const getWindowDimensions = () => {
+  const {innerWidth:width, innerHeight: height} = window;
+  return {width, height}
+}
+
 const SignupPage = () => {
   const categoryText = ["이메일", "비밀번호","비밀번호 확인", "성명", "학번", "학년", "휴대폰 번호", "본 전공", "이중 전공"];
   const [showDropDown, setShowDropDown] = useState(false);
@@ -21,6 +26,7 @@ const SignupPage = () => {
   const categoryValue = [email, password, password2, name, studentId, grade, phoneNum, major, doubleMajor];
   const categorySetter = [setEmail, setPassword, setPassword2, setName, setStudentId, setGrade, setPhoneNum, setMajor, setDoubleMajor];
   const [emptyArray, setEmptyArray] = useState([true, true, true, true, true, true, true, true, true]);
+  const [isChecked, setIsChecked] = useState(false);
 
 
   const {handleSignup} = useSignup();
@@ -41,6 +47,11 @@ const SignupPage = () => {
     console.log(emptyArray)
     console.log(emptyArray.indexOf(false))
   }
+
+  useEffect(() => {
+    console.log(isChecked)
+  }, [isChecked])
+  
   
 
   return (
@@ -94,7 +105,7 @@ const SignupPage = () => {
                   {password !== password2 && index===2 ?
                   <>
                   <MarginVertical margin={10}/>
-                  <DifferentPW>비밀번호 오류!</DifferentPW> 
+                  <DifferentPW>비밀번호가 일치하지 않습니다</DifferentPW> 
                   </>
                   : <></>}
               </SignupEl>
@@ -106,8 +117,8 @@ const SignupPage = () => {
         </SignupContentsBody>
         <MarginVertical margin={36}/>
         <SignupCheckBoxArea>
-          <CheckBox type='checkbox'/>
-          <CheckBoxText>개인정보 수집 및 이용에 동의합니다</CheckBoxText>
+          <CheckBox type='checkbox' value={isChecked} onChange={() => setIsChecked(prev => !prev)}/>
+          <CheckBoxText >개인정보 수집 및 이용에 동의합니다</CheckBoxText>
         </SignupCheckBoxArea>
         <MarginVertical margin={40}/>
         {emptyArray.includes(true) ?
@@ -123,7 +134,7 @@ const SignupPage = () => {
           :
           handleSignup(email, password, password2, name, studentId, grade, phoneNum, major, doubleMajor)
         }}
-        style={{backgroundColor:emptyArray.includes(true) ? "gray" : ""}}
+        style={{backgroundColor:!emptyArray.includes(true) && isChecked ? "" : "gray"}}
         >가입하기</SignupButton>
         <MarginVertical margin={100}/>
 
@@ -136,17 +147,22 @@ export default SignupPage
 
 const SignupBody = styled.div`
   background-color:#F2F4F6;
-  width:100%;
+  width:100vw;
   height:100%;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   padding:20px;
+  box-sizing:border-box;
+
+
 `
 
 const SignupInfoArea = styled.div`
   width:369px;
+
+ 
 `
 
 const SignupTitle = styled.div`
