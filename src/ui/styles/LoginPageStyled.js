@@ -3,13 +3,14 @@ import styled from 'styled-components';
 export const LoginBody = styled.div`
   background-color: #f2f4f6;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden;
 `;
 
 export const LoginContent = styled.div`
@@ -38,7 +39,7 @@ export const SignupLink = styled.span`
   }
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   color: #212224;
   font-size: 16px;
   font-weight: 700;
