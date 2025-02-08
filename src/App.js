@@ -10,10 +10,12 @@ import LoginPage from './ui/pages/LoginPage';
 import FormListView from './ui/pages/FormListView';
 import MainPage from './ui/pages/MainPage';
 import ApplianceSubmit from './ui/pages/ApplianceSubmit';
+import Header from './ui/components/header';
 
 function App() {
 	return (
 		<BrowserRouter>
+			<Header/>
 			<Routes>
 				<Route path='/' element={<MainPage />} />
 				<Route path='/write' element={<Write />} />
