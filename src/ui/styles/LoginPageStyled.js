@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginBody = styled.div`
   background-color: #f2f4f6;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 144px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +11,7 @@ export const LoginBody = styled.div`
   padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
+  font-family: 'Pretendard';
 `;
 
 export const LoginContent = styled.div`
@@ -19,13 +20,13 @@ export const LoginContent = styled.div`
 
 export const LoginTitle = styled.div`
   font-size: 34px;
-  font-weight: 900;
+  font-weight: 800;
 `;
 
 export const SubText = styled.p`
   font-size: 16px;
   color: #333;
-  margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 export const SignupLink = styled.span`
@@ -41,8 +42,6 @@ export const SignupLink = styled.span`
 
 export const Form = styled.form`
   color: #212224;
-  font-size: 16px;
-  font-weight: 700;
   line-height: normal;
   margin-top: 40px;
 `;
@@ -51,7 +50,7 @@ export const Input = styled.input`
   display: flex;
   width: 369px;
   padding: 18px;
-  margin: 30px auto;
+  margin: 20px auto;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -59,16 +58,20 @@ export const Input = styled.input`
   background: #fff;
   border: none;
   box-sizing: border-box;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
-  color: #a3a3a3;
+
+  ::placeholder {
+    color: #a3a3a3;
+    font-size: 14px;
+  }
 `;
 
 export const LoginBtn = styled.button`
   width: 369px;
   border: none;
   padding: 18px;
-  margin-top: 70px;
+  margin-top: 50px;
   border-radius: 14px;
   background: #ed802f;
   color: #fff;
