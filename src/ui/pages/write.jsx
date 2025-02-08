@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as W from "../styles/writeStyles";
-import Header from '../components/header';
 
 const Write = () => {
     const [formData, setFormData] = useState({
@@ -178,7 +177,9 @@ const Write = () => {
                 </W.OContent>
             </W.One>
             <W.Two>
-                <W.TwTitle>2. 지원하신 파트를 선택한 이유와 관련된 경험을 작성해주세요. (500자 이내)</W.TwTitle>
+                <W.TwTitle>2. 지원하신 파트를 선택한 이유와 관련 경험을 해본 적이 있는지, <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 이 파트를 통해 어떠한 성장을 희망하시는지 작성해주세요. <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(500자 이내)</W.TwTitle>
                 <W.TwContent>
                     <W.Textarea
                         name="answer2"
@@ -190,7 +191,9 @@ const Write = () => {
                 </W.TwContent>
             </W.Two>
             <W.Three>
-                <W.ThTitle>3. 협업 또는 팀워크 경험과 맡은 역할, 성과를 작성해주세요. (500자 이내)</W.ThTitle>
+                <W.ThTitle>3. 멋쟁이 사자처럼 대학은 협업과 팀워크를 중요한 가치로 생각하는 공동체입니다. <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지원자 본인이 협업 또는 팀워크를 진행해 보았던 경험을 <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자신이 맡았던 역할 및 협업의 성과를 위주로 작성해주세요. (500자 이내)</W.ThTitle>
                 <W.ThContent>
                     <W.Textarea
                         name="answer3"
@@ -214,7 +217,10 @@ const Write = () => {
                 </W.FoContent>
             </W.Four>
             <W.Five>
-                <W.FiTitle>5. 좋은 개발자란 무엇인지, 그리고 그러한 개발자가 되기 위해 어떤 노력을 하고 싶은지 작성해주세요. (500자 이내)</W.FiTitle>
+                <W.FiTitle>5-1. 프론트엔드/백엔드 트랙 질문<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;좋은 개발자는 무엇이라고 생각하시나요? <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 그러한 개발자가 되기 위해 지원자님께서 현재 혹은 미래에 <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떠한 노력을 기울이고 싶으신지 작성해주세요. (500자 이내)</W.FiTitle>
                 <W.FiContent>
                     <W.Textarea
                         name="answer5"
@@ -226,10 +232,17 @@ const Write = () => {
                 </W.FiContent>
             </W.Five>
             <W.Six>
-                <W.STitle>5-2. 기획/디자인 트랙 질문{"\n"}
-                    자신이 손수 기획하여 만들어보고 싶은 서비스에 대해 간단하게 설명해 주세요. (500자 이내)</W.STitle>
+                <W.STitle>5-2. 기획/디자인 트랙 질문<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자신이 손수 기획하여 만들어보고 싶은 서비스에 대해 간단하게 설명해 주세요.<br/> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(500자 이내)</W.STitle>
                 <W.SContent>
-                    <W.Textarea maxLength="500" onInput={TextboxHeight}/>
+                    <W.Textarea
+                        name="answer5"
+                        maxLength="500"
+                        onInput={TextboxHeight}
+                        onChange={handleChange}
+                        value={formData.answer5}
+                    />
                 </W.SContent>
             </W.Six>
             <W.Seven>
