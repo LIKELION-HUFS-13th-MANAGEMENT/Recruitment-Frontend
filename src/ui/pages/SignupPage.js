@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import dropdown_icon from '../../assets/images/dropdown_icon.png';
 import SignupDropDown from '../components/SignupDropDown';
 import { useSignup } from '../../logic/hooks/useSignup';
+import { Link } from 'react-router-dom';
 
 const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -94,37 +95,36 @@ const SignupPage = () => {
 
   return (
     <SignupBody>
-      <SignupInfoArea>
-        <MarginVertical margin={124} />
-        <SignupTitle>회원가입</SignupTitle>
-        <MarginVertical margin={16} />
-        <GotoLoginArea>
-          <SignupText>이미 계정이 있으신가요?</SignupText>
-          <GotoLoginText onClick={() => navigate('/login')}>
-            Log In
-          </GotoLoginText>
-        </GotoLoginArea>
-        <MarginVertical margin={38} />
-      </SignupInfoArea>
-      <SignupContentsBody>
-        {categoryText.map((el, index) => {
-          return index === 5 ? (
-            <>
+      <SignupInner style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+        <SignupInfoArea>
+          <MarginVertical margin={124}/>
+          <SignupTitle>회원가입</SignupTitle>
+          <MarginVertical margin={16}/>
+          <GotoLoginArea>
+            <SignupText>이미 계정이 있으신가요?</SignupText>
+            <Link to={"/login"}>
+              <GotoLoginText>Log In</GotoLoginText>
+            </Link>
+          </GotoLoginArea>
+          <MarginVertical margin={38}/>
+        </SignupInfoArea>
+        <SignupContentsBody>
+          {categoryText.map((el, index) => {
+
+
+            return(
+              index === 5 ?
+              <>
               <SignupEl key={index}>
                 <SignupCategory>{el}</SignupCategory>
-                <MarginVertical margin={8} />
-                <div style={{ width: 369, display: 'flex' }}>
-                  <SignupInput
-                    placeholder={`${el}을 선택해주세요`}
-                    value={grade}
-                  />
-                  <DropDownIcon
-                    onClick={() => setShowDropDown((prev) => !prev)}
-                  >
-                    <DropDownIconImg src={dropdown_icon} />
+                <MarginVertical margin={8}/>
+                <GradeInputBody>
+                  <SignupInput placeholder={`${el}을 선택해주세요`} value={grade}/>
+                  <DropDownIcon onClick={() => setShowDropDown(prev => !prev)}>
+                    <DropDownIconImg src={dropdown_icon}/>
                   </DropDownIcon>
-                </div>
-                <MarginVertical margin={showDropDown ? 10 : 24} />
+                </GradeInputBody>
+                <MarginVertical margin={showDropDown ? 10 : 24}/>
               </SignupEl>
               {showDropDown ? (
                 <SignupDropDown
@@ -137,7 +137,7 @@ const SignupPage = () => {
                 <></>
               )}
             </>
-          ) : (
+          : 
             <>
               <SignupEl key={index}>
                 <SignupCategory>{el}</SignupCategory>
@@ -168,8 +168,8 @@ const SignupPage = () => {
               </SignupEl>
               <MarginVertical margin={24} />
             </>
-          );
-        })}
+          )}
+          )}
       </SignupContentsBody>
       <MarginVertical margin={36} />
       <SignupCheckBoxArea>
@@ -209,10 +209,9 @@ const SignupPage = () => {
           backgroundColor:
             !emptyArray.includes(true) && isChecked ? '' : 'gray',
         }}
-      >
-        가입하기
-      </SignupButton>
-      <MarginVertical margin={100} />
+        >가입하기</SignupButton>
+        <MarginVertical margin={100}/>
+        </SignupInner>
     </SignupBody>
   );
 };
@@ -220,20 +219,39 @@ const SignupPage = () => {
 export default SignupPage;
 
 const SignupBody = styled.div`
-  background-color: #f2f4f6;
-  width: 100vw;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
-`;
+  background-color:#F2F4F6;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  box-sizing:border-box;
+
+
+`
+
+const SignupInner = styled.div`
+  width: 90vw;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  @media(max width:369px){
+    width:90vw;
+  }
+
+`
 
 const SignupInfoArea = styled.div`
-  width: 369px;
-`;
+  width:369px;
+
+  @media(max-width:369px){
+    width:90vw;
+  }
+ 
+`
 
 const SignupTitle = styled.div`
   font-size: 34px;
@@ -269,9 +287,26 @@ const GotoLoginText = styled.div`
   cursor: pointer;
 `;
 
-const SignupContentsBody = styled.div``;
+const SignupContentsBody = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  width:369px;
 
-const SignupEl = styled.div``;
+  @media(max-width:369px){
+    width:90vw;
+  }
+`
+
+const SignupEl = styled.div`
+  width:369px;
+
+  @media(max-width:369px){
+    width:90vw;
+  }
+
+`
 
 const SignupCategory = styled.div`
   color: #212224;
@@ -288,19 +323,27 @@ const SignupInput = styled.input`
   align-items: center;
   gap: 10px;
   border-radius: 14px;
-  background: #fff;
-  border: none;
-  box-sizing: border-box;
-  font-weight: 700;
-  font-size: 15px;
-`;
+  background: #FFF;
+  border:none;
+  box-sizing:border-box;
+  font-weight:700;
+  font-size:15px;
+  
+  @media (max-width:380px){
+    width:90vw;
+  }
+`
 
 const SignupCheckBoxArea = styled.div`
-  display: flex;
-  align-items: center;
-  width: 369px;
-  gap: 5px;
-`;
+  width:369px;
+  display:flex;
+  align-items:center;
+  
+  gap:5px;
+  @media(max-width:369px){
+    width:90vw;
+  }
+`
 
 const CheckBox = styled.input`
   width: 18px;
@@ -321,15 +364,19 @@ const SignupButton = styled.button`
   border: none;
   padding: 18px;
   border-radius: 14px;
-  background: #ed802f;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 800;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-`;
+  background:#ED802F;
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-sizing:border-box;
+
+  @media(max-width:369px){
+    width:90vw;
+  }
+`
 
 const DropDownIcon = styled.button`
   border: none;
@@ -342,6 +389,15 @@ const DropDownIconImg = styled.img`
 `;
 
 const DifferentPW = styled.div`
-  color: #ed802f;
-  font-weight: 700;
-`;
+  color:#ED802F;
+  font-weight:700;
+`
+
+const GradeInputBody = styled.div`
+  width:369px;
+  display:flex;
+
+  @media(max-width){
+    width:90vw;
+  }
+`

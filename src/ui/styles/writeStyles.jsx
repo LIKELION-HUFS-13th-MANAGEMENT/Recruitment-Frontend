@@ -3,12 +3,21 @@ import { styled } from "styled-components";
 export const Container = styled.div`
     padding: 50px 200px;
     background-color: #F2F4F6;
+
+    @media (max-width: 768px) {
+        padding: 20px 15px; 
+    }
 `;
 
 export const Title = styled.div`
     font-weight: bold;
     font-size: 30px;
     margin-bottom: 5%;
+
+    @media (max-width: 768px) {
+        font-size: 22px; 
+        text-align: center;
+    }
 `;
 
 export const TitleContent = styled.div``;
@@ -39,6 +48,11 @@ export const Textarea = styled.textarea`
     resize: none;
     box-sizing: border-box;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        font-size: 14px; 
+        padding: 10px;   
+    }
 `;
 
 export const Two = styled.div`
@@ -111,6 +125,20 @@ export const SeTitle = styled.div`
     margin-bottom: 1%;
 `;
 
+export const Track = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-left: -4%;
+    margin-bottom: 5%;
+
+    @media (max-width: 768px) {
+        flex-direction: column; 
+        gap: 15px;
+    }
+`;
+
+
 export const SeContent = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -126,9 +154,9 @@ export const Choice = styled.label`
     cursor: pointer;
     gap: 6px;
     transition: background-color 0.3s, color 0.3s;
-    &:hover {
-        background-color: #f0f8ff;
-        color: #007bff;
+
+    @media (max-width: 768px) {
+        font-size: 16px; 
     }
 `;
 
@@ -142,6 +170,11 @@ export const ChoiceInput = styled.input`
     }
     &:checked {
         outline: none; 
+    }
+
+    @media (max-width: 768px) {
+        width: 18px;
+        height: 18px;
     }
 `;
 
@@ -160,6 +193,13 @@ export const Button = styled.div`
     gap: 10px;
     margin-top: 20px;
     margin-bottom: 50%;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
 `;
 
 export const ReButton = styled.button`
@@ -176,6 +216,11 @@ export const ReButton = styled.button`
     &:hover {
         background-color: #585858;
     }
+
+    @media (max-width: 768px) {
+        width: 90%;
+        font-size: 14px;
+    }
 `;
 
 export const FnButton = styled.button`
@@ -191,5 +236,10 @@ export const FnButton = styled.button`
 
     &:hover {
         background-color: #ee9756;
+    }
+
+    @media (max-width: 768px) {
+        width: 90%;
+        font-size: 14px;
     }
 `;

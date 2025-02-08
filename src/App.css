@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: Pretendard;
+  src: url('./assets/fonts/Pretendard-Regular.woff');
+}
+@font-face {
+  font-family: Pretendard;
+  src: url('./assets/fonts/Pretendard-Light.woff');
+  font-weight: 400;
+}
+@font-face {
+  font-family: Pretendard;
+  src: url('./assets/fonts/Pretendard-Bold.woff');
+  font-weight: 800;
+}
