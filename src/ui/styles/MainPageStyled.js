@@ -3,7 +3,7 @@ import backgroundImg from '../../assets/images/background_img.png';
 
 export const Body = styled.div`
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 144px);
   background-color: #212224;
   display: flex;
 
