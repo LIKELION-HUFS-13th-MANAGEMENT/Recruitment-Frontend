@@ -12,10 +12,19 @@ export const LoginBody = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   font-family: 'Pretendard';
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    padding-top: 50px;
+  }
 `;
 
 export const LoginContent = styled.div`
   width: 369px;
+
+  @media (max-width: 768px) {
+    margin: 5% 1%;
+  }
 `;
 
 export const LoginTitle = styled.div`
