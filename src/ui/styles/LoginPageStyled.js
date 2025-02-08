@@ -39,7 +39,7 @@ export const SignupLink = styled.span`
   }
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   color: #212224;
   font-size: 16px;
   font-weight: 700;
