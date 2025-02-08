@@ -44,6 +44,10 @@ const DropDownBody = styled.div`
   overflow:scroll;
   padding:10px 20px;
   box-sizing:border-box;
+
+  @media(max-width:369px){
+    width:90vw;
+  }
 `
 
 const MenuEl = styled.div`

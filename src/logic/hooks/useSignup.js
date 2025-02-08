@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useCallback } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export const useSignup = () => {
+  const navigate = useNavigate();
   const handleSignup = useCallback(
     async (email, password, password2, name, studentId, grade, phoneNum, major, doubleMajor) => {
       try {
@@ -11,19 +13,17 @@ export const useSignup = () => {
           password2: password2,
           fullname: name,
           student_number: Number(studentId),
-          grade: Number(grade),  // 기존 코드에서 강제적으로 1로 설정된 부분 수정
+          grade: Number(grade),  
           phone: phoneNum,
           major_1: major,
           major_2: doubleMajor
         })
         console.log(response.data)
-       
-        return response.data // 응답 데이터를 반환하는 것이 더 유용할 수도 있음
+        navigate('/');
+        
       } catch (error) {
         console.error('Signup Error:', error.response ? error.response.data : error)
-        console.log("grade:",grade)
-        console.log("phone:",phoneNum)
-
+        alert("회원가입을 실패하였습니다")
       }
     }, []
   )

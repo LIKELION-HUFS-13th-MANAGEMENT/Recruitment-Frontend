@@ -13,6 +13,7 @@ import ApplianceSubmit from './ui/pages/ApplianceSubmit';
 import Header from './ui/components/header';
 
 function App() {
+	
 	return (
 		<BrowserRouter>
 			<Header/>
@@ -28,7 +29,7 @@ function App() {
 				<Route
 					path='/appliance/submit/:id'
 					element={<ApplianceSubmit />}
-				/>{' '}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);

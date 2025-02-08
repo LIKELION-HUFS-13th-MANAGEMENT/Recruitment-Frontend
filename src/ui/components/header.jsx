@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import * as H from '../styles/headerStyles';
 import Logo from '../../assets/images/logo.png';
+import { useLogout } from '../../logic/hooks/useLogout';
 
 const Header = () => {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        setIsLoggedIn(!!token); 
-    }, []);
-
+    const {handleLogout} = useLogout();
+    const token = localStorage.getItem("access_token");
+    const [isLogout, setIsLogout] = useState(false);
+    
+    
     const handleLogin = () => {
-        navigate(`/login`);
+        navigate(`/login`)
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('access_token'); 
-        setIsLoggedIn(false); 
-        alert("로그아웃 되었습니다.");
-        navigate(`/`); 
-    };
 
     const handleWrite = () => {
         navigate(`/write`);
@@ -35,11 +28,7 @@ const Header = () => {
         <H.Container>
             <H.Logo src={Logo} alt="로고" onClick={handleHome} style={{ cursor: 'pointer' }} />
             <H.MenuContainer>
-                {isLoggedIn ? (
-                    <H.ButtonLogin onClick={handleLogout}>로그아웃</H.ButtonLogin> 
-                ) : (
-                    <H.ButtonLogin onClick={handleLogin}>로그인</H.ButtonLogin>  
-                )}
+                <H.ButtonLogin onClick={() => {token ? handleLogout(token, setIsLogout) : handleLogin()}}>{token ? "로그아웃" : "로그인"} </H.ButtonLogin>
                 <H.ButtonWrite onClick={handleWrite}>지원서 작성하기</H.ButtonWrite>
                 <H.ButtonHome onClick={handleHome}>HOME</H.ButtonHome>
             </H.MenuContainer>
