@@ -1,9 +1,15 @@
+//ViewBox.js
 import React from 'react';
 import styled from 'styled-components';
 
-const ViewBox = ({ user_fullname, track, created_at }) => {
+const ViewBox = ({
+	user_fullname,
+	track,
+	created_at,
+	onClick,
+}) => {
 	return (
-		<Box>
+		<Box onClick={onClick}>
 			<PerIcon />
 			<Inform>
 				<Apliname>
