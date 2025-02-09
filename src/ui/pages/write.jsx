@@ -280,7 +280,16 @@ const Write = () => {
             </W.Eight>
             <W.Button>
                 <W.ReButton onClick={handleEdit}>수정</W.ReButton>
-                <W.FnButton onClick={handleSubmit}>최종 제출</W.FnButton>
+                <W.FnButton 
+                    onClick={handleSubmit} 
+                    disabled={formData.canSpendTime === "False"} 
+                    style={{ 
+                        backgroundColor: formData.canSpendTime === "False" ? "#ccc" : "", 
+                        cursor: formData.canSpendTime === "False" ? "not-allowed" : "pointer" 
+                    }}
+                >
+                    최종 제출
+                </W.FnButton>
             </W.Button>
         </W.Content>
         </W.Container>
