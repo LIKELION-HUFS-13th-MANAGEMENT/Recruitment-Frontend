@@ -29,9 +29,9 @@ const ApplianceSubmit = () => {
 		location.state || {};
 
 	// 디버깅을 위한 로그
-	console.log('Location state:', location.state);
-	console.log('User fullname:', user_fullname);
-	console.log('Track:', track);
+	//console.log('Location state:', location.state);
+	//console.log('User fullname:', user_fullname);
+	//console.log('Track:', track);
 
 	useEffect(() => {
 		// 토큰 확인 로직 추가
@@ -47,10 +47,10 @@ const ApplianceSubmit = () => {
 
 		const fetchData = async () => {
 			try {
-				console.log(
-					'API 호출:',
-					`${API_BASE_URL}${API_ENDPOINT}`
-				);
+				//console.log(
+				//	'API 호출:',
+				//	`${API_BASE_URL}${API_ENDPOINT}`
+				//);
 
 				const response = await fetch(
 					`${API_BASE_URL}${API_ENDPOINT}`,
@@ -69,7 +69,7 @@ const ApplianceSubmit = () => {
 				}
 
 				const data = await response.json();
-				console.log('Received application data:', data);
+				//console.log('Received application data:', data);
 				setApplicationData(data);
 			} catch (error) {
 				console.error('Error fetching data:', error);
