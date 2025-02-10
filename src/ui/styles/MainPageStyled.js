@@ -3,9 +3,10 @@ import backgroundImg from '../../assets/images/background_img.png';
 
 export const Body = styled.div`
   width: 100%;
-  min-height: calc(100vh - 144px);
+  min-height: calc(100vh - 64px - 64px);
   background-color: #212224;
   display: flex;
+  flex-grow: 1; // 남은 공간을 자동으로 채움
 
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
@@ -23,7 +24,7 @@ export const Body = styled.div`
 export const Content = styled.div`
   text-align: left;
   max-width: 600px;
-  margin-top: 8%;
+  margin-top: 3%;
   margin-left: 5%;
 
   @media (max-width: 768px) {
@@ -34,9 +35,9 @@ export const Content = styled.div`
 
 export const SubTitle = styled.h2`
   color: #ffffff;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 500;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 
   @media (max-width: 768px) {
     font-size: 20px;
@@ -45,9 +46,11 @@ export const SubTitle = styled.h2`
 
 export const Title = styled.h1`
   color: #ffffff;
-  font-size: 48px;
+  font-size: 65px;
   font-weight: 800;
-  margin: 0px;
+  margin-top: 2px;
+  margin-bottom: 9px;
+  line-height: 1;
 
   @media (max-width: 768px) {
     font-size: 40px;
@@ -60,7 +63,7 @@ export const SignupBtn = styled.button`
   font-size: 18px;
   font-weight: bold;
   padding: 12px 29px;
-  margin-top: 20px;
+  margin-top: 28px;
   border: none;
   border-radius: 30px;
   cursor: pointer;

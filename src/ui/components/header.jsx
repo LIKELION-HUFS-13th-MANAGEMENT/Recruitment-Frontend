@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import * as H from '../styles/headerStyles';
 import Logo from '../../assets/images/logo.png';
+import Logo1 from '../../assets/images/logo1.svg';
 import { useLogout } from '../../logic/hooks/useLogout';
 
 const ADMIN_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NjM2MzMwLCJqdGkiOiJhZDEyMzUwMTExMzc0MDUzYTNhOTBhOGUzOWYzNzFkNiIsInVzZXJfaWQiOjF9.3ET-fZUrNZH—nY6as68tL9zCjiKg2w8QTJgTU_8UVg"
@@ -39,7 +40,7 @@ const Header = () => {
 
     return (
         <H.Container>
-            <H.Logo src={Logo} alt="로고" onClick={handleHome} style={{ cursor: 'pointer' }} />
+            <H.Logo src={Logo1} alt="로고" onClick={handleHome} style={{ cursor: 'pointer' }} />
             <H.MenuContainer>
                 <H.ButtonLogin onClick={() => {token ? handleLogout(token, setIsLogout) : handleLogin()}}>{token ? "로그아웃" : "로그인"} </H.ButtonLogin>
                 <H.ButtonWrite onClick={handleWriteOrList}>

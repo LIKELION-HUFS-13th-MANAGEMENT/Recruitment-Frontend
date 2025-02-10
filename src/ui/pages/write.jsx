@@ -5,19 +5,20 @@ import * as W from "../styles/writeStyles";
 
 const Write = () => {
     const [formData, setFormData] = useState({
-        track: 0,
+        track: "",
         answer1:"",
         answer2:"",
         answer3:"",
         answer4:"",
         answer5:"",
-        canSpendTime: "True",
+        canSpendTime: "",
         portfolio:""
     });
 
     const [isEditMode, setIsEditMode] = useState(false);  
     const [applicationId, setApplicationId] = useState(null); 
     const accessToken = localStorage.getItem('access_token');
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     useEffect(() => {
         const savedFormData = localStorage.getItem('submittedFormData');
@@ -28,6 +29,7 @@ const Write = () => {
         }
         if (savedApplicationId) {
             setApplicationId(savedApplicationId);
+            setIsSubmitted(true);
         }
     }, []);
 
@@ -50,6 +52,12 @@ const Write = () => {
         localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
     };
 
+    const handleTrackDependentInput = (e, allowedTracks) => {
+        if (!allowedTracks.includes(formData.track)) {
+            e.target.blur();  
+            alert("지원하실 트랙을 먼저 선택해 주세요."); 
+        }
+    };
 
     const TextboxHeight = (e) => {
         e.target.style.height = "auto";
@@ -61,6 +69,11 @@ const Write = () => {
     
         if (!accessToken) {
             alert("로그인이 필요합니다.");
+            return;
+        }
+
+        if (formData.track !== 0 && formData.track !== 1 && formData.track !== 2) {
+            alert("지원하실 트랙을 선택해 주세요.");
             return;
         }
     
@@ -83,6 +96,7 @@ const Write = () => {
                 setApplicationId(response.data.id); 
                 localStorage.setItem('submittedFormData', JSON.stringify(formData));
                 localStorage.setItem('applicationId', response.data.id);
+                setIsSubmitted(true); 
                 console.log(response.data);
             }
         } catch (error) {
@@ -227,7 +241,9 @@ const Write = () => {
                         maxLength="500"
                         onInput={TextboxHeight}
                         onChange={handleChange}
-                        value={formData.answer5}
+                        value={formData.track === 0 || formData.track === 1 ? formData.answer5 : ""} 
+                        onFocus={(e) => handleTrackDependentInput(e, [0, 1])}  
+                        placeholder={formData.track === 0 || formData.track === 1 ? "" : "트랙을 선택하세요"} 
                     />
                 </W.FiContent>
             </W.Five>
@@ -241,7 +257,9 @@ const Write = () => {
                         maxLength="500"
                         onInput={TextboxHeight}
                         onChange={handleChange}
-                        value={formData.answer5}
+                        value={formData.track === 2 ? formData.answer5 : ""} 
+                        onFocus={(e) => handleTrackDependentInput(e, [2])}   
+                        placeholder={formData.track === 2 ? "" : "트랙을 선택하세요"} 
                     />
                 </W.SContent>
             </W.Six>
@@ -280,7 +298,18 @@ const Write = () => {
             </W.Eight>
             <W.Button>
                 <W.ReButton onClick={handleEdit}>수정</W.ReButton>
-                <W.FnButton onClick={handleSubmit}>최종 제출</W.FnButton>
+                {!isSubmitted && ( 
+                    <W.FnButton 
+                        onClick={handleSubmit} 
+                        disabled={formData.canSpendTime === "False"} 
+                        style={{ 
+                            backgroundColor: formData.canSpendTime === "False" ? "#ccc" : "", 
+                            cursor: formData.canSpendTime === "False" ? "not-allowed" : "pointer" 
+                        }}
+                    >
+                        최종 제출
+                    </W.FnButton>
+                )}    
             </W.Button>
         </W.Content>
         </W.Container>
