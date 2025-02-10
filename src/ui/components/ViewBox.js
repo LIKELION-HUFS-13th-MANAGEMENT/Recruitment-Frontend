@@ -2,6 +2,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const getTrackName = (track) => {
+	switch (track) {
+		case 0:
+			return '프론트엔드';
+		case 1:
+			return '백엔드';
+		case 2:
+			return '기획/디자인';
+		default:
+			return '지원자';
+	}
+};
+
 const ViewBox = ({
 	user_fullname,
 	track,
@@ -14,7 +27,10 @@ const ViewBox = ({
 			<Inform>
 				<Apliname>
 					{user_fullname}
-					<Aplipart>{track} 파트</Aplipart>
+					<Aplipart>
+						{getTrackName(track)} 파트
+					</Aplipart>{' '}
+					{/* 🔥 변환된 값 출력 */}
 				</Apliname>
 				<Date>{created_at}</Date>
 			</Inform>
