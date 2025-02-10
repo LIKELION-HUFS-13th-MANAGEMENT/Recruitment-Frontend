@@ -16,7 +16,7 @@ export const useLogout = () => {
       console.log(response);
       localStorage.removeItem('access_token');
       window.dispatchEvent(new Event('storage'));
-
+      alert("로그아웃을 성공하였습니다")
       setIsLogout(true);
     } catch (error) {
       console.log(error);

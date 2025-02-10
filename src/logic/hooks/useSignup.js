@@ -19,6 +19,7 @@ export const useSignup = () => {
           major_2: doubleMajor
         })
         console.log(response.data)
+        alert("회원가입을 성공하였습니다")
         navigate('/');
         
       } catch (error) {
