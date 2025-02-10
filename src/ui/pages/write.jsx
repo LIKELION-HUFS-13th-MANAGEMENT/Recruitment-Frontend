@@ -220,7 +220,7 @@ const Write = () => {
                 </W.ThContent>
             </W.Three>
             <W.Four>
-                <W.FoTitle>4. (선택사항) 경험을 멋쟁이사자처럼 대학에서 어떻게 적용할 수 있을지 작성해주세요. (300자 이내)</W.FoTitle>
+                <W.FoTitle>4. (선택사항) 3번에서 작성한 경험을 멋쟁이사자처럼 대학에서 어떻게 적용할 수 있을지 작성해주세요. (300자 이내)</W.FoTitle>
                 <W.FoContent>
                     <W.Textarea
                         name="answer4"
@@ -269,7 +269,7 @@ const Write = () => {
             </W.Six>
             )}
             <W.Seven>
-                <W.SeTitle>6. 멋쟁이사자처럼 대학은 많은 시간이 투자되어야 합니다. 괜찮으신가요?</W.SeTitle>
+                <W.SeTitle>6. 멋쟁이사자처럼대학은 주 1회 정규 세션 뿐 아니라 과제나 팀 프로젝트 및 각종 해커톤으로 인해 상당히 많은 시간을 필요로 할 수 있습니다. 지원자 님의 앞으로의 계획과 일정을 신중히 고려하신 뒤, 1년 동안 열심히 참여하실 수 있는 경우에 지원해 주세요.</W.SeTitle>
                 <W.SeContent>
                     <W.Choice>
                         <W.ChoiceInput 
@@ -291,7 +291,7 @@ const Write = () => {
                 </W.SeContent>
             </W.Seven>
             <W.Eight>
-                <W.ETitle>7. 깃허브 주소 혹은 블로그 링크 등 포트폴리오</W.ETitle>
+                <W.ETitle>7. 제출하고 싶은 깃허브 주소, 블로그, 포트폴리오가 있으신 경우에 작성해 주세요.</W.ETitle>
                 <W.EContent>
                     <W.Textarea
                         name="portfolio"
