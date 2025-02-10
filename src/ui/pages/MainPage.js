@@ -5,11 +5,19 @@ import arrow_icon from '../../assets/images/arrow_icon.png';
 
 function MainPage() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem('access_token')
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    setIsLoggedIn(!!token);
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem('access_token'));
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (

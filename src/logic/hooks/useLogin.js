@@ -1,9 +1,18 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const BASE_URL = 'https://woodzverse.pythonanywhere.com';
 
 const useLogin = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null); // 로그인 상태
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access_token');
+    if (accessToken) {
+      setUser({ token: accessToken }); // 로그인 상태 업데이트
+    }
+  }, []);
 
   const handleLogin = async (email, password) => {
     try {
