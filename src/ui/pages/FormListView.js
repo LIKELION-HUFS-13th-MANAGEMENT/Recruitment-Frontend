@@ -16,7 +16,7 @@ const FormListView = () => {
 
 	useEffect(() => {
 		const userToken = localStorage.getItem('access_token');
-		console.log('User Token:', userToken); // 디버깅용 콘솔 로그
+		//console.log('User Token:', userToken); // 디버깅용 콘솔 로그
 
 		if (!userToken) {
 			alert(
@@ -33,15 +33,15 @@ const FormListView = () => {
 	//API 요청 시 로그인한 유저의 토큰을 사용하도록 수정
 	const fetchData = async (userToken) => {
 		try {
-			console.log(
-				'API 호출:',
-				`${API_BASE_URL}${API_ENDPOINT}`
-			);
+			//console.log(
+			//	'API 호출:',
+			//	`${API_BASE_URL}${API_ENDPOINT}`
+			//);
 
 			const response = await fetch(
 				`${API_BASE_URL}${API_ENDPOINT}`,
 				{
-					headers: { Authorization: `Bearer ${userToken}` }, // 🔥 여기서 userToken 사용!
+					headers: { Authorization: `Bearer ${userToken}` },
 				}
 			);
 
@@ -55,13 +55,13 @@ const FormListView = () => {
 			setFormData(Array.isArray(data) ? data : []);
 			setIsLoading(false);
 		} catch (error) {
-			console.error('데이터 가져오기 오류:', error);
+			//console.error('데이터 가져오기 오류:', error);
 			setError(error.message);
 			setIsLoading(false);
 		}
 	};
 	const handleApplicationClick = (item) => {
-		console.log('Navigating with data:', item); // 네비게이션 데이터 확인
+		//console.log('Navigating with data:', item); // 네비게이션 데이터 확인
 		navigate(`/appliance/submit/${item.id}`, {
 			state: {
 				user_fullname: item.user_fullname,
