@@ -32,9 +32,15 @@ const useLogin = () => {
       if (!response.ok) {
         const errorMessage = data.error?.[0] || '로그인에 실패했습니다.';
 
-        // 회원가입이 필요할 경우
-        if (errorMessage.includes('Invalid email or password')) {
+        // 이메일이 존재하지 않는 경우
+        if (errorMessage.includes('Invalid email')) {
           alert('이메일이 존재하지 않습니다. 회원가입을 진행해주세요.');
+          return;
+        }
+
+        // 비밀번호가 틀린 경우
+        if (errorMessage.includes('Invalid password')) {
+          alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
           return;
         }
 
@@ -46,8 +52,9 @@ const useLogin = () => {
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
 
-      // 로그인 성공 시 메인 페이지로 이동
+      window.dispatchEvent(new Event('storage'));
 
+      // 로그인 성공 시 메인 페이지로 이동
       navigate('/');
     } catch (error) {
       alert(error.message);
