@@ -46,7 +46,8 @@ const Write = () => {
     const handleTrackChange = (e) => {
         const newFormData = {
             ...formData,
-            track: parseInt(e.target.value)
+            track: parseInt(e.target.value),
+            answer5: "" 
         };
         setFormData(newFormData);
         localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
@@ -230,25 +231,28 @@ const Write = () => {
                     />
                 </W.FoContent>
             </W.Four>
-            <W.Five>
-                <W.FiTitle>5-1. 프론트엔드/백엔드 트랙 질문<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;좋은 개발자는 무엇이라고 생각하시나요? <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 그러한 개발자가 되기 위해 지원자님께서 현재 혹은 미래에 <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떠한 노력을 기울이고 싶으신지 작성해주세요. (500자 이내)</W.FiTitle>
-                <W.FiContent>
-                    <W.Textarea
-                        name="answer5"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.track === 0 || formData.track === 1 ? formData.answer5 : ""} 
-                        onFocus={(e) => handleTrackDependentInput(e, [0, 1])}  
-                        placeholder={formData.track === 0 || formData.track === 1 ? "" : "트랙을 선택하세요"} 
-                    />
-                </W.FiContent>
-            </W.Five>
+            {(formData.track === 0 || formData.track === 1) && (
+                <W.Five>
+                    <W.FiTitle>5. 프론트엔드/백엔드 트랙 질문<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;좋은 개발자는 무엇이라고 생각하시나요? <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 그러한 개발자가 되기 위해 지원자님께서 현재 혹은 미래에 <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떠한 노력을 기울이고 싶으신지 작성해주세요. (500자 이내)</W.FiTitle>
+                    <W.FiContent>
+                        <W.Textarea
+                            name="answer5"
+                            maxLength="500"
+                            onInput={TextboxHeight}
+                            onChange={handleChange}
+                            value={formData.track === 0 || formData.track === 1 ? formData.answer5 : ""} 
+                            onFocus={(e) => handleTrackDependentInput(e, [0, 1])}  
+                            placeholder={formData.track === 0 || formData.track === 1 ? "" : "트랙을 선택하세요"} 
+                        />
+                    </W.FiContent>
+                </W.Five>
+            )}
+            {formData.track === 2 && (
             <W.Six>
-                <W.STitle>5-2. 기획/디자인 트랙 질문<br/>
+                <W.STitle>5. 기획/디자인 트랙 질문<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자신이 손수 기획하여 만들어보고 싶은 서비스에 대해 간단하게 설명해 주세요.<br/> 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(500자 이내)</W.STitle>
                 <W.SContent>
@@ -263,6 +267,7 @@ const Write = () => {
                     />
                 </W.SContent>
             </W.Six>
+            )}
             <W.Seven>
                 <W.SeTitle>6. 멋쟁이사자처럼 대학은 많은 시간이 투자되어야 합니다. 괜찮으신가요?</W.SeTitle>
                 <W.SeContent>
