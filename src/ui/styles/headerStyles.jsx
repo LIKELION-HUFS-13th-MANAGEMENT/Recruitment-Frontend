@@ -50,7 +50,7 @@ export const MenuPopupMobile = styled.div`
         justify-content: center;
         align-items: flex-start; 
         z-index: 1000;
-        padding: 20px;
+        padding: 25px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px; 
     }
