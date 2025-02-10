@@ -3,7 +3,7 @@ import backgroundImg from '../../assets/images/background_img.png';
 
 export const Body = styled.div`
   width: 100%;
-  min-height: calc(100vh - 64px - 64px);
+  min-height: calc(100vh - 80px - 84px);
   background-color: #212224;
   display: flex;
   flex-grow: 1; // 남은 공간을 자동으로 채움
