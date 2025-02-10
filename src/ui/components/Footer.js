@@ -5,7 +5,7 @@ const Footer = () => {
 	return (
 		<Footerdiv>
 			<Footcontacth>
-				멋쟁이사자처럼 한국외대(서울) 이메일
+				멋쟁이사자처럼 한국외대(서울)
 			</Footcontacth>
 			<Footcontacth>hufs_seoul@likelion.org</Footcontacth>
 		</Footerdiv>
