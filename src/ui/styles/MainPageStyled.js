@@ -6,6 +6,7 @@ export const Body = styled.div`
   min-height: calc(100vh - 64px - 64px);
   background-color: #212224;
   display: flex;
+  flex-grow: 1; // 남은 공간을 자동으로 채움
 
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
