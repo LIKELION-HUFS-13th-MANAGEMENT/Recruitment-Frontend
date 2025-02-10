@@ -285,7 +285,8 @@ const Write = () => {
                             name="canSpendTime" 
                             value="False" 
                             checked={formData.canSpendTime === "False"}
-                            onChange={handleChange}/> 아니오
+                            onChange={handleChange}
+                            disabled={isSubmitted}/> 아니오
                     </W.Choice>
                 </W.SeContent>
             </W.Seven>
