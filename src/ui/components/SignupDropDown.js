@@ -37,7 +37,6 @@ export default SignupDropDown
 
 
 const DropDownBody = styled.div`
-  width:369px;
   background-color:#fff;
   height:100px;
   border-radius:14px;
@@ -45,9 +44,13 @@ const DropDownBody = styled.div`
   padding:10px 20px;
   box-sizing:border-box;
 
-  @media(max-width:369px){
-    width:90vw;
+  width: 100%;  // 부모 크기에 맞게 설정
+  max-width: 369px;
+
+  @media (max-width: 369px) {
+    width: 90vw;
   }
+
 `
 
 const MenuEl = styled.div`

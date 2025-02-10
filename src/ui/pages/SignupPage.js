@@ -145,11 +145,16 @@ const SignupPage = () => {
                 <SignupInput
                   type={index === 1 || index === 2 ? 'password' : 'text'}
                   placeholder={
-                    index === 1 || index === 6
-                      ? `${el}를 입력해주세요`
+                    index === 1 
+                      ? `알파벳, 숫자 포함 8글자 이상`
                       : index === 2
                       ? `비밀번호를 다시 입력해주세요`
-                      : `${el}을 입력해주세요`
+                      : index === 4
+                      ? 'ex)20XXXXXXX'
+                      : index === 6
+                      ? 'ex)010-0000-0000'
+                      :
+                      `${el}을 입력해주세요`
                   }
                   value={categoryValue[index]}
                   onChange={(e) => {
@@ -233,19 +238,22 @@ const SignupBody = styled.div`
 `
 
 const SignupInner = styled.div`
-  width: 90vw;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  @media(max width:369px){
-    width:90vw;
-  }
+  width: 100%;
+  max-width: 389px;  // 최대 너비 설정
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 
-`
+  @media (max-width: 369px) {
+    width: 90vw; // 화면이 작아질 때 가변적으로 조정
+  }
+`;
+
 
 const SignupInfoArea = styled.div`
-  width:369px;
+  width:100%;
 
   @media(max-width:369px){
     width:90vw;
@@ -288,25 +296,25 @@ const GotoLoginText = styled.div`
 `;
 
 const SignupContentsBody = styled.div`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  width:369px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // 중앙 정렬 유지
+  width: 100%;
+  max-width: 369px;
 
-  @media(max-width:369px){
-    width:90vw;
+  @media (max-width: 369px) {
+    width: 90vw;
   }
-`
+`;
 
 const SignupEl = styled.div`
-  width:369px;
+  width: 100%;  // 부모 크기에 맞게 설정
+  max-width: 369px;
 
-  @media(max-width:369px){
-    width:90vw;
+  @media (max-width: 369px) {
+    width: 90vw;
   }
-
-`
+`;
 
 const SignupCategory = styled.div`
   color: #212224;
@@ -335,13 +343,13 @@ const SignupInput = styled.input`
 `
 
 const SignupCheckBoxArea = styled.div`
-  width:369px;
   display:flex;
   align-items:center;
-  
   gap:5px;
-  @media(max-width:369px){
-    width:90vw;
+  width: 100%;
+  max-width: 369px;
+  @media (max-width: 369px) {
+    width: 90vw;
   }
 `
 
@@ -382,6 +390,9 @@ const DropDownIcon = styled.button`
   border: none;
   background: none;
   z-index: 9;
+  position:absolute;
+  right:10px;
+  
 `;
 
 const DropDownIconImg = styled.img`
@@ -394,10 +405,14 @@ const DifferentPW = styled.div`
 `
 
 const GradeInputBody = styled.div`
-  width:369px;
+  width: 100%;  // 부모 크기에 맞게 설정
+  max-width: 369px;
+  position:relative;
   display:flex;
+  justify-content:center;
+  align-items:center;
 
-  @media(max-width){
-    width:90vw;
+  @media (max-width: 369px) {
+    width: 90vw;
   }
 `
