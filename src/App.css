@@ -38,16 +38,23 @@
 }
 
 @font-face {
-  font-family: Pretendard;
+  font-family: 'Pretendard';
+  src: url('../src//assets/fonts/PretendardVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard';
   src: url('./assets/fonts/Pretendard-Regular.woff');
 }
 @font-face {
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   src: url('./assets/fonts/Pretendard-Light.woff');
   font-weight: 400;
 }
 @font-face {
-  font-family: Pretendard;
+  font-family: 'Pretendard';
   src: url('./assets/fonts/Pretendard-Bold.woff');
   font-weight: 800;
 }

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const LoginBody = styled.div`
+export const LoginPageContainer = styled.div`
   background-color: #f2f4f6;
-  width: 100vw;
-  height: calc(100vh - 144px);
+  width: 100%;
+  min-height: calc(100vh - 84px - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,18 +12,34 @@ export const LoginBody = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   font-family: 'Pretendard';
+  flex-grow: 1;
 
   @media (max-width: 768px) {
-    justify-content: flex-start;
-    padding-top: 50px;
+    min-height: calc(100vh - 55px - 80px);
   }
 `;
 
 export const LoginContent = styled.div`
-  width: 369px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  flex-grow: 1;
 
-  @media (max-width: 768px) {
-    margin: 5% 1%;
+  @media (max-width: 369px) {
+    width: 90vw;
+  }
+`;
+
+export const LoginHeader = styled.div`
+  width: 369px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 369px) {
+    width: 90vw;
   }
 `;
 
@@ -40,7 +56,7 @@ export const SubText = styled.p`
 
 export const SignupLink = styled.span`
   color: #ed802f;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   text-decoration-line: underline;
 
@@ -53,6 +69,10 @@ export const Form = styled.form`
   color: #212224;
   line-height: normal;
   margin-top: 40px;
+
+  @media (max-width: 369px) {
+    width: 90vw;
+  }
 `;
 
 export const Input = styled.input`
@@ -74,6 +94,10 @@ export const Input = styled.input`
     color: #a3a3a3;
     font-size: 14px;
   }
+
+  @media (max-width: 369px) {
+    width: 90vw;
+  }
 `;
 
 export const LoginBtn = styled.button`
@@ -91,4 +115,8 @@ export const LoginBtn = styled.button`
   align-items: center;
   box-sizing: border-box;
   cursor: pointer;
+
+  @media (max-width: 369px) {
+    width: 90vw;
+  }
 `;
