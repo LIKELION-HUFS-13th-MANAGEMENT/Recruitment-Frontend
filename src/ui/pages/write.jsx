@@ -46,26 +46,44 @@ const Write = () => {
 
 
     useEffect(() => {
-        const savedFormData = localStorage.getItem('submittedFormData');
-        const savedApplicationId = localStorage.getItem('applicationId');
-        
-        if (savedFormData) {
-            const parsedFormData = JSON.parse(savedFormData);
-            setFormData(parsedFormData);
-        }
+        const handleStorageChange = () => {
+            const savedFormData = localStorage.getItem('submittedFormData');
+            const savedApplicationId = localStorage.getItem('applicationId');
+            
+            if (savedFormData) {
+                const parsedFormData = JSON.parse(savedFormData);
+                setFormData(parsedFormData);
+            }
 
-        if (savedApplicationId) {
-            setIsSubmitted(true);
-        }
+            if (savedApplicationId) {
+                setIsSubmitted(true);
+                setApplicationId(savedApplicationId); 
+            } else {
+                setIsSubmitted(false);
+                setApplicationId(null); 
+            }
 
-        setTimeout(() => {
-            textareasRef.current.forEach((textarea) => {
-                if (textarea) {
-                    textarea.style.height = "auto";
-                    textarea.style.height = `${textarea.scrollHeight}px`;
-                }
-            });
-        }, 0);
+            setIsSubmitted(!!savedApplicationId);
+
+            setTimeout(() => {
+                textareasRef.current.forEach((textarea) => {
+                    if (textarea) {
+                        textarea.style.height = "auto";
+                        textarea.style.height = `${textarea.scrollHeight}px`;
+                    }
+                });
+            }, 0);
+        };
+
+        handleStorageChange();
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('formSubmitted', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('formSubmitted', handleStorageChange);
+        };
     }, []);
 
     const handleChange = (e, index) => {
@@ -131,11 +149,14 @@ const Write = () => {
     
             if (response.status === 201) {
                 alert("제출이 완료되었습니다!");
-                setApplicationId(response.data.id); 
+                const newAppId = response.data.id;
+                setApplicationId(newAppId);  
+                setIsSubmitted(true);
+                
                 localStorage.setItem('submittedFormData', JSON.stringify(formData));
-                localStorage.setItem('applicationId', response.data.id);
-                setIsSubmitted(true); 
-                console.log(response.data);
+                localStorage.setItem('applicationId', newAppId);
+                console.log("[Write] applicationId 저장:", newAppId);
+                window.dispatchEvent(new Event('applicationSubmitted'));
             }
         } catch (error) {
             console.error("제출 중 오류 발생:", error);
