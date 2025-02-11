@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const useLogout = () => {
+  const navigate = useNavigate();
   const handleLogout = async (token, setIsLogout) => {
     try {
       const response = await axios.post(
@@ -18,6 +20,8 @@ export const useLogout = () => {
       window.dispatchEvent(new Event('storage'));
       alert("로그아웃을 성공하였습니다")
       setIsLogout(true);
+      localStorage.removeItem('submittedFormData');
+      navigate("/")
     } catch (error) {
       console.log(error);
       console.log(token);
