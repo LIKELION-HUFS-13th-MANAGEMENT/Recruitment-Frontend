@@ -21,15 +21,17 @@ function LoginPage() {
   };
 
   return (
-    <L.LoginBody>
+    <L.LoginPageContainer>
       <L.LoginContent>
-        <L.LoginTitle>로그인</L.LoginTitle>
-        <L.SubText>
-          아직 계정이 없으신가요?{' '}
-          <L.SignupLink onClick={() => navigate('/signup')}>
-            Sign Up
-          </L.SignupLink>
-        </L.SubText>
+        <L.LoginHeader>
+          <L.LoginTitle>로그인</L.LoginTitle>
+          <L.SubText>
+            아직 계정이 없으신가요?{' '}
+            <L.SignupLink onClick={() => navigate('/signup')}>
+              Sign Up
+            </L.SignupLink>
+          </L.SubText>
+        </L.LoginHeader>
         <L.Form onSubmit={handleSubmit}>
           <L.Input
             type="email"
@@ -48,7 +50,7 @@ function LoginPage() {
           <L.LoginBtn type="submit">로그인</L.LoginBtn>
         </L.Form>
       </L.LoginContent>
-    </L.LoginBody>
+    </L.LoginPageContainer>
   );
 }
 
