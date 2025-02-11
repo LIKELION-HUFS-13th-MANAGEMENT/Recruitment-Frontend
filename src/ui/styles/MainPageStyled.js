@@ -22,7 +22,7 @@ export const Body = styled.div`
   // 모바일 반응형
   @media (max-width: 768px) {
     background-size: 45vh 40vh;
-    background-position: 15% 70%;
+    background-position: 95% 80%;
   }
 `;
 
