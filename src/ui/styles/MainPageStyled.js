@@ -4,7 +4,12 @@ import backgroundImg from '../../assets/images/background_img.png';
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: calc(100vh - 84px - 80px);
+  flex-grow: 1;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 55px - 80px);
+  }
 `;
 
 export const Body = styled.div`
