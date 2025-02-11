@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as W from "../styles/writeStyles";
@@ -19,8 +19,18 @@ const Write = () => {
     const [applicationId, setApplicationId] = useState(null); 
     const accessToken = localStorage.getItem('access_token');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const textareasRef = useRef([]); 
 
-    useEffect(() => {
+    const autoResize = () => {
+        textareasRef.current.forEach((textarea) => {
+            if (textarea) {
+                textarea.style.height = "auto";
+                textarea.style.height = `${textarea.scrollHeight}px`;
+            }
+        });
+    };
+
+    useLayoutEffect(() => {
         const savedFormData = localStorage.getItem('submittedFormData');
         const savedApplicationId = localStorage.getItem('applicationId');
 
@@ -28,12 +38,37 @@ const Write = () => {
             setFormData(JSON.parse(savedFormData));
         }
         if (savedApplicationId) {
-            setApplicationId(savedApplicationId);
             setIsSubmitted(true);
         }
+
+        autoResize(); 
     }, []);
 
-    const handleChange = (e) => {
+
+    useEffect(() => {
+        const savedFormData = localStorage.getItem('submittedFormData');
+        const savedApplicationId = localStorage.getItem('applicationId');
+        
+        if (savedFormData) {
+            const parsedFormData = JSON.parse(savedFormData);
+            setFormData(parsedFormData);
+        }
+
+        if (savedApplicationId) {
+            setIsSubmitted(true);
+        }
+
+        setTimeout(() => {
+            textareasRef.current.forEach((textarea) => {
+                if (textarea) {
+                    textarea.style.height = "auto";
+                    textarea.style.height = `${textarea.scrollHeight}px`;
+                }
+            });
+        }, 0);
+    }, []);
+
+    const handleChange = (e, index) => {
         const { name, value, type } = e.target;
         const newFormData = {
             ...formData,
@@ -41,6 +76,8 @@ const Write = () => {
         };
         setFormData(newFormData);
         localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
+        
+        autoResize();
     };
 
     const handleTrackChange = (e) => {
@@ -146,179 +183,159 @@ const Write = () => {
         }
     };
 
-    return(
-        <>
-        <W.Container>
+    return (
+    <W.Container>
         <W.Title>
             <W.TitleContent>지원서 작성</W.TitleContent>
         </W.Title>
         <W.Content>
-            <W.Track>
-                <W.Choice>
-                    <W.ChoiceInput 
-                        type="radio" 
-                        name="track" 
-                        value="0" 
-                        checked={formData.track === 0}
-                        onChange={handleTrackChange}/> 프론트엔드
-                </W.Choice>
-                <W.Choice>
-                    <W.ChoiceInput 
-                        type="radio" 
-                        name="track" 
-                        value="1" 
-                        checked={formData.track === 1}
-                        onChange={handleTrackChange}/> 백엔드
-                </W.Choice>
-                <W.Choice>
-                    <W.ChoiceInput 
-                        type="radio" 
-                        name="track" 
-                        value="2"
-                        checked={formData.track === 2}
-                        onChange={handleTrackChange}/> 기획/디자인
-                </W.Choice>
-            </W.Track>
-            <W.One>
-                <W.OTitle>1. 멋쟁이사자처럼 대학에 지원하시게 된 이유를 작성해주세요. (500자 이내)</W.OTitle>
-                <W.OContent>
-                    <W.Textarea
-                        name="answer1"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.answer1}
-                    />
-                </W.OContent>
-            </W.One>
-            <W.Two>
-                <W.TwTitle>2. 지원하신 파트를 선택한 이유와 관련 경험을 해본 적이 있는지, <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 이 파트를 통해 어떠한 성장을 희망하시는지 작성해주세요. <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(500자 이내)</W.TwTitle>
-                <W.TwContent>
-                    <W.Textarea
-                        name="answer2"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.answer2}
-                    />
-                </W.TwContent>
-            </W.Two>
-            <W.Three>
-                <W.ThTitle>3. 멋쟁이 사자처럼 대학은 협업과 팀워크를 중요한 가치로 생각하는 공동체입니다. <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지원자 본인이 협업 또는 팀워크를 진행해 보았던 경험을 <br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자신이 맡았던 역할 및 협업의 성과를 위주로 작성해주세요. (500자 이내)</W.ThTitle>
-                <W.ThContent>
-                    <W.Textarea
-                        name="answer3"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.answer3}
-                    />
-                </W.ThContent>
-            </W.Three>
-            <W.Four>
-                <W.FoTitle>4. (선택사항) 경험을 멋쟁이사자처럼 대학에서 어떻게 적용할 수 있을지 작성해주세요. (300자 이내)</W.FoTitle>
-                <W.FoContent>
-                    <W.Textarea
-                        name="answer4"
-                        maxLength="300"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.answer4}
-                    />
-                </W.FoContent>
-            </W.Four>
-            {(formData.track === 0 || formData.track === 1) && (
-                <W.Five>
-                    <W.FiTitle>5. 프론트엔드/백엔드 트랙 질문<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;좋은 개발자는 무엇이라고 생각하시나요? <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;그리고 그러한 개발자가 되기 위해 지원자님께서 현재 혹은 미래에 <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떠한 노력을 기울이고 싶으신지 작성해주세요. (500자 이내)</W.FiTitle>
-                    <W.FiContent>
-                        <W.Textarea
-                            name="answer5"
-                            maxLength="500"
-                            onInput={TextboxHeight}
-                            onChange={handleChange}
-                            value={formData.track === 0 || formData.track === 1 ? formData.answer5 : ""} 
-                            onFocus={(e) => handleTrackDependentInput(e, [0, 1])}  
-                            placeholder={formData.track === 0 || formData.track === 1 ? "" : "트랙을 선택하세요"} 
-                        />
-                    </W.FiContent>
-                </W.Five>
+            <W.Section>
+                <W.SectionTitle>0. 지원하실 트랙을 선택해주세요.</W.SectionTitle>
+                    <W.ChoiceContainer>
+                        <W.Choice>
+                            <W.ChoiceInput
+                                type="radio"
+                                name="track"
+                                value="0"
+                                checked={formData.track === 0}
+                                onChange={handleTrackChange}
+                            /> 프론트엔드
+                        </W.Choice>
+                        <W.Choice>
+                            <W.ChoiceInput
+                                type="radio"
+                                name="track"
+                                value="1"
+                                checked={formData.track === 1}
+                                onChange={handleTrackChange}
+                            /> 백엔드
+                        </W.Choice>
+                        <W.Choice>
+                            <W.ChoiceInput
+                                type="radio"
+                                name="track"
+                                value="2"
+                                checked={formData.track === 2}
+                                onChange={handleTrackChange}
+                            /> 기획/디자인
+                        </W.Choice>
+                    </W.ChoiceContainer>
+            </W.Section>
+            {[
+            { name: "answer1", title: "1. 멋쟁이사자처럼 대학에 지원하시게 된 이유를 작성해 주세요. (500자 이내)" },
+            { name: "answer2", title: "2. 지원하신 파트를 선택한 이유와 관련 경험을 해본 적이 있는지, 그리고 이 파트를 통해 어떠한 성장을 희망하는지 작성해 주세요. (500자 이내)" },
+            { name: "answer3", title: "3. 멋쟁이사자처럼 대학은 협업과 팀워크를 중요한 가치로 생각하는 공동체입니다. 지원자 본인이 협업 또는 팀워크를 진행해 보았던 경험을 자신이 맡았던 역할 및 협업의 성과를 위주로 작성해 주세요. (500자 이내)" },
+            { name: "answer4", title: "4. (선택사항) 3번에서 작성한 경험을 멋쟁이사저처럼 대학에서 어떻게 적용할 수 있을지 작성해 주세요. (300자 이내)" }
+            ].map((field, index) => (
+            <W.Section key={index}>
+                <W.SectionTitle>{field.title}</W.SectionTitle>
+                <W.SectionContent>
+                <W.Textarea
+                    name={field.name}
+                    maxLength={field.name === "answer4" ? "300" : "500"}
+                    onInput={TextboxHeight}
+                    onChange={(e) => handleChange(e, index)}
+                    value={formData[field.name]}
+                    ref={(el) => (textareasRef.current[index] = el)}
+                    placeholder="내용을 입력하세요."
+                />
+                </W.SectionContent>
+            </W.Section>
+            ))}
+
+            {((formData.track === 0 || formData.track === 1) || formData.track === "") && (
+            <W.Section>
+                <W.SectionTitle>5. 프론트엔드/백엔드 트랙 질문 <br/> 좋은 개발자는 무엇이라고 생각하시나요? 그리고 그러한 개발자가 되기 위해 지원자님께서 현재 혹은 미래에 어떠한 노력을 기울이고 싶으신지 작성해 주세요. (500자 이내)</W.SectionTitle>
+                <W.SectionContent>
+                <W.Textarea
+                    name="answer5"
+                    maxLength="500"
+                    onInput={TextboxHeight}
+                    onChange={(e) => handleChange(e, 4)}
+                    value={formData.answer5}
+                    onFocus={(e) => handleTrackDependentInput(e, [0, 1])}
+                    placeholder="트랙 선택 후 입력하세요."
+                    ref={(el) => (textareasRef.current[4] = el)}
+                />
+                </W.SectionContent>
+            </W.Section>
             )}
-            {formData.track === 2 && (
-            <W.Six>
-                <W.STitle>5. 기획/디자인 트랙 질문<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자신이 손수 기획하여 만들어보고 싶은 서비스에 대해 간단하게 설명해 주세요.<br/> 
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(500자 이내)</W.STitle>
-                <W.SContent>
-                    <W.Textarea
-                        name="answer5"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.track === 2 ? formData.answer5 : ""} 
-                        onFocus={(e) => handleTrackDependentInput(e, [2])}   
-                        placeholder={formData.track === 2 ? "" : "트랙을 선택하세요"} 
-                    />
-                </W.SContent>
-            </W.Six>
+
+            {(formData.track === 2 || formData.track === "") && (
+            <W.Section>
+                <W.SectionTitle>5. 기획/디자인 트랙 질문 <br/> 자신이 손수 기획하여 만들어보고 싶은 서비스에 대해 간단하게 설명해 주세요. (500자 이내)</W.SectionTitle>
+                <W.SectionContent>
+                <W.Textarea
+                    name="answer5"
+                    maxLength="500"
+                    onInput={TextboxHeight}
+                    onChange={(e) => handleChange(e, 4)}
+                    value={formData.answer5}
+                    onFocus={(e) => handleTrackDependentInput(e, [2])}
+                    placeholder="트랙 선택 후 입력하세요."
+                    ref={(el) => (textareasRef.current[4] = el)}
+                />
+                </W.SectionContent>
+            </W.Section>
             )}
-            <W.Seven>
-                <W.SeTitle>6. 멋쟁이사자처럼 대학은 많은 시간이 투자되어야 합니다. 괜찮으신가요?</W.SeTitle>
-                <W.SeContent>
-                    <W.Choice>
-                        <W.ChoiceInput 
-                            type="radio" 
-                            name="canSpendTime" 
-                            value="True" 
-                            checked={formData.canSpendTime === "True"}
-                            onChange={handleChange}/> 예
-                    </W.Choice>
-                    <W.Choice>
-                        <W.ChoiceInput 
-                            type="radio" 
-                            name="canSpendTime" 
-                            value="False" 
-                            checked={formData.canSpendTime === "False"}
-                            onChange={handleChange}/> 아니오
-                    </W.Choice>
-                </W.SeContent>
-            </W.Seven>
-            <W.Eight>
-                <W.ETitle>7. 깃허브 주소 혹은 블로그 링크 등 포트폴리오</W.ETitle>
-                <W.EContent>
-                    <W.Textarea
-                        name="portfolio"
-                        maxLength="500"
-                        onInput={TextboxHeight}
-                        onChange={handleChange}
-                        value={formData.portfolio}
-                    />
-                </W.EContent>
-            </W.Eight>
-            <W.Button>
-                <W.ReButton onClick={handleEdit}>수정</W.ReButton>
-                {!isSubmitted && ( 
-                    <W.FnButton 
-                        onClick={handleSubmit} 
-                        disabled={formData.canSpendTime === "False"} 
-                        style={{ 
-                            backgroundColor: formData.canSpendTime === "False" ? "#ccc" : "", 
-                            cursor: formData.canSpendTime === "False" ? "not-allowed" : "pointer" 
-                        }}
-                    >
-                        최종 제출
-                    </W.FnButton>
-                )}    
-            </W.Button>
+
+            <W.ChoiceContainer>
+            <W.ChoiceTitle>6. 멋쟁이사자처럼 대학은 주 1회 정규 세션 뿐 아니라 과제나 팀 프로젝트 및 각종 해커톤으로 인해 상당히 많은 시간을 필요로 할 수 있습니다. 지원자님의 앞으로의 계획과 일정을 신중히 고려하신 뒤, 1년 동안 열심히 참여하실 수 있는 경우에 지원해 주세요.</W.ChoiceTitle>
+            <W.Choice>
+                <W.ChoiceInput
+                type="radio"
+                name="canSpendTime"
+                value="True"
+                checked={formData.canSpendTime === "True"}
+                onChange={handleChange}
+                />
+                예
+            </W.Choice>
+            <W.Choice>
+                <W.ChoiceInput
+                type="radio"
+                name="canSpendTime"
+                value="False"
+                checked={formData.canSpendTime === "False"}
+                onChange={handleChange}
+                disabled={isSubmitted}
+                />
+                아니오
+            </W.Choice>
+            </W.ChoiceContainer>
+
+            <W.Section>
+            <W.SectionTitle>7. 제출하고 싶은 깃허브 주소, 블로그, 포트폴리오가 있으신 경우에 작성해 주세요.</W.SectionTitle>
+            <W.SectionContent>
+                <W.Textarea
+                name="portfolio"
+                maxLength="500"
+                onInput={TextboxHeight}
+                onChange={(e) => handleChange(e, 5)}
+                value={formData.portfolio}
+                ref={(el) => (textareasRef.current[5] = el)}
+                placeholder="포트폴리오 링크를 입력하세요."
+                />
+            </W.SectionContent>
+            </W.Section>
+
+            <W.ButtonContainer>
+            <W.ReButton onClick={handleEdit}>수정</W.ReButton>
+            {!isSubmitted && (
+                <W.SubmitButton
+                onClick={handleSubmit}
+                disabled={formData.canSpendTime === "False"}
+                style={{
+                    backgroundColor: formData.canSpendTime === "False" ? "#ccc" : "",
+                    cursor: formData.canSpendTime === "False" ? "not-allowed" : "pointer",
+                }}
+                >
+                최종 제출
+                </W.SubmitButton>
+            )}
+            </W.ButtonContainer>
         </W.Content>
-        </W.Container>
-        </>
+    </W.Container>
     );
 };
 export default Write;
