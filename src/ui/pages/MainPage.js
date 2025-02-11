@@ -21,21 +21,23 @@ function MainPage() {
   }, []);
 
   return (
-    <M.Body>
-      <M.Content>
-        <M.SubTitle>HUFS SEOUL</M.SubTitle>
-        <M.Title>멋쟁이사자처럼</M.Title>
-        <M.Title>13기</M.Title>
-        <M.SignupBtn
-          onClick={() => navigate(isLoggedIn ? `/write` : '/signup')}
-        >
-          {isLoggedIn ? '지원서 작성하기' : '회원가입'}
-          <M.ArrowIcon>
-            <M.ArrowImg src={arrow_icon} alt="화살표 아이콘" />
-          </M.ArrowIcon>
-        </M.SignupBtn>
-      </M.Content>
-    </M.Body>
+    <M.PageContainer>
+      <M.Body>
+        <M.Content>
+          <M.SubTitle>HUFS SEOUL</M.SubTitle>
+          <M.Title>멋쟁이사자처럼</M.Title>
+          <M.Title>13기</M.Title>
+          <M.SignupBtn
+            onClick={() => navigate(isLoggedIn ? `/write` : '/signup')}
+          >
+            {isLoggedIn ? '지원서 작성하기' : '회원가입'}
+            <M.ArrowIcon>
+              <M.ArrowImg src={arrow_icon} alt="화살표 아이콘" />
+            </M.ArrowIcon>
+          </M.SignupBtn>
+        </M.Content>
+      </M.Body>
+    </M.PageContainer>
   );
 }
 
