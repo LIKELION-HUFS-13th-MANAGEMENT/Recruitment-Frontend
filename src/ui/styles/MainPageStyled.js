@@ -4,7 +4,7 @@ import backgroundImg from '../../assets/images/background_img.png';
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
 `;
 
 export const Body = styled.div`

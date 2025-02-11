@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginBody = styled.div`
   background-color: #f2f4f6;
   width: 100vw;
-  height: calc(100vh - 144px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
