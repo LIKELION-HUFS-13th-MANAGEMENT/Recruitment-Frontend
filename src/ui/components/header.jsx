@@ -12,11 +12,22 @@ const ADMIN_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYW
 const Header = () => {
     const navigate = useNavigate();
     const {handleLogout} = useLogout();
-    const token = localStorage.getItem("access_token");
+    const [token, setToken] = useState(localStorage.getItem("access_token"));
     const [isLogout, setIsLogout] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setToken(localStorage.getItem("access_token")); 
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
+
     useEffect(() => {
         if (token === ADMIN_TOKEN) { 
             setIsAdmin(true);

@@ -314,7 +314,7 @@ const Write = () => {
                 onChange={(e) => handleChange(e, 5)}
                 value={formData.portfolio}
                 ref={(el) => (textareasRef.current[5] = el)}
-                placeholder="포트폴리오 링크를 입력하세요."
+                placeholder="내용을 입력하세요."
                 />
             </W.SectionContent>
             </W.Section>
