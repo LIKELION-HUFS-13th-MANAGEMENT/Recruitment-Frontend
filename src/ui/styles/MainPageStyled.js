@@ -4,11 +4,17 @@ import backgroundImg from '../../assets/images/background_img.png';
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 84px - 80px);
+  flex-grow: 1;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 55px - 80px);
+  }
 `;
 
 export const Body = styled.div`
   width: 100%;
+  min-height: calc(100vh-84px-80px);
   background-color: #212224;
   display: flex;
   flex-grow: 1; // 남은 공간을 자동으로 채움
@@ -21,6 +27,7 @@ export const Body = styled.div`
 
   // 모바일 반응형
   @media (max-width: 768px) {
+    min-height: calc(100vh-55px-80px);
     background-size: 45vh 40vh;
     background-position: 95% 80%;
   }
