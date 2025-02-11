@@ -32,15 +32,8 @@ const useLogin = () => {
       if (!response.ok) {
         const errorMessage = data.error?.[0] || '로그인에 실패했습니다.';
 
-        // 이메일이 존재하지 않는 경우
-        if (errorMessage.includes('Invalid email')) {
-          alert('이메일이 존재하지 않습니다. 회원가입을 진행해주세요.');
-          return;
-        }
-
-        // 비밀번호가 틀린 경우
-        if (errorMessage.includes('Invalid password')) {
-          alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
+        if (errorMessage.includes('Invalid email or password')) {
+          alert('이메일 또는 비밀번호가 틀렸습니다. 다시 입력해주세요.');
           return;
         }
 
