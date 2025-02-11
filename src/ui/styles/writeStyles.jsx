@@ -24,22 +24,21 @@ export const TitleContent = styled.div``;
 
 export const Content = styled.div``;
 
-export const One = styled.div`
+export const Section = styled.div`
     margin-bottom: 5%;
 `;
 
-export const OTitle = styled.div`
+export const SectionTitle = styled.div`
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 1%;
 `;
 
-export const OContent = styled.div`
-`;
+export const SectionContent = styled.div``;
 
 export const Textarea = styled.textarea`
     width: 100%;
-    min-height: 100%;
+    min-height: 150px;
     margin-top: 2%;
     padding: 15px;
     border-radius: 15px;
@@ -55,76 +54,6 @@ export const Textarea = styled.textarea`
     }
 `;
 
-export const Two = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const TwTitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const TwContent = styled.div``;
-
-export const Three = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const ThTitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const ThContent = styled.div``;
-
-export const Four = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const FoTitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const FoContent = styled.div``;
-
-export const Five = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const FiTitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const FiContent = styled.div``;
-
-export const Six = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const STitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const SContent = styled.div``;
-
-export const Seven = styled.div`
-    margin-bottom: 5%;
-`;
-
-export const SeTitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
 export const Track = styled.div`
     display: flex;
     justify-content: flex-start;
@@ -136,14 +65,6 @@ export const Track = styled.div`
         flex-direction: column; 
         gap: 15px;
     }
-`;
-
-
-export const SeContent = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    gap: 30px;
-    margin-left: -1.5%;
 `;
 
 export const Choice = styled.label`
@@ -178,16 +99,6 @@ export const ChoiceInput = styled.input`
     }
 `;
 
-export const Eight = styled.div``;
-
-export const ETitle = styled.div`
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 1%;
-`;
-
-export const EContent = styled.div``;
-
 export const Button = styled.div`
     display: flex;
     gap: 10px;
@@ -199,7 +110,6 @@ export const Button = styled.div`
         align-items: center;
         gap: 15px;
     }
-
 `;
 
 export const ReButton = styled.button`
@@ -241,5 +151,50 @@ export const FnButton = styled.button`
     @media (max-width: 768px) {
         width: 90%;
         font-size: 14px;
+    }
+`;
+
+export const SubmitButton = styled.button`
+    background-color: #ed802f;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #ea924f;
+    }
+
+    @media (max-width: 768px) {
+        width: 90%;
+        font-size: 14px;
+    }
+`;
+
+export const ChoiceContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+`;
+
+export const ChoiceTitle = styled.div`
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+`;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
     }
 `;
