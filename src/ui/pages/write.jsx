@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as W from "../styles/writeStyles";
+import Dropdown from '../../assets/images/dropdown_icon.png';
 
 const Write = () => {
     const [formData, setFormData] = useState({
@@ -29,6 +30,13 @@ const Write = () => {
             }
         });
     };
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
+    const trackOptions = [
+        { value: 0, label: "프론트엔드" },
+        { value: 1, label: "백엔드" },
+        { value: 2, label: "기획/디자인" }
+    ];
 
     useLayoutEffect(() => {
         const savedFormData = localStorage.getItem('submittedFormData');
@@ -98,14 +106,21 @@ const Write = () => {
         autoResize();
     };
 
-    const handleTrackChange = (e) => {
-        const newFormData = {
-            ...formData,
-            track: parseInt(e.target.value),
-            answer5: "" 
-        };
+    // const handleTrackChange = (e) => {
+    //     const newFormData = {
+    //         ...formData,
+    //         track: parseInt(e.target.value),
+    //         answer5: "" 
+    //     };
+    //     setFormData(newFormData);
+    //     localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
+    // };
+
+    const handleTrackChange = (value) => {
+        const newFormData = { ...formData, track: value, answer5: "" };
         setFormData(newFormData);
         localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
+        setIsDropdownOpen(false); 
     };
 
     const handleTrackDependentInput = (e, allowedTracks) => {
@@ -212,35 +227,21 @@ const Write = () => {
         <W.Content>
             <W.Section>
                 <W.SectionTitle>0. 지원하실 트랙을 선택해주세요.</W.SectionTitle>
-                    <W.ChoiceContainer>
-                        <W.Choice>
-                            <W.ChoiceInput
-                                type="radio"
-                                name="track"
-                                value="0"
-                                checked={formData.track === 0}
-                                onChange={handleTrackChange}
-                            /> 프론트엔드
-                        </W.Choice>
-                        <W.Choice>
-                            <W.ChoiceInput
-                                type="radio"
-                                name="track"
-                                value="1"
-                                checked={formData.track === 1}
-                                onChange={handleTrackChange}
-                            /> 백엔드
-                        </W.Choice>
-                        <W.Choice>
-                            <W.ChoiceInput
-                                type="radio"
-                                name="track"
-                                value="2"
-                                checked={formData.track === 2}
-                                onChange={handleTrackChange}
-                            /> 기획/디자인
-                        </W.Choice>
-                    </W.ChoiceContainer>
+                <W.DropdownContainer> 
+                        <W.DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                            {formData.track !== "" ? trackOptions.find(option => option.value === formData.track).label : "트랙을 선택해주세요"}
+                            <W.DropdownIcon src={Dropdown} alt="Dropdown" />
+                        </W.DropdownHeader>
+                        {isDropdownOpen && ( 
+                            <W.DropdownList>
+                                {trackOptions.map((option) => (
+                                    <W.DropdownItem key={option.value} onClick={() => handleTrackChange(option.value)}> 
+                                        {option.label}
+                                    </W.DropdownItem>
+                                ))}
+                            </W.DropdownList>
+                        )}
+                    </W.DropdownContainer>
             </W.Section>
             {[
             { name: "answer1", title: "1. 멋쟁이사자처럼 대학에 지원하시게 된 이유를 작성해 주세요. (500자 이내)" },
