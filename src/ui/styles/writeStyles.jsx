@@ -198,3 +198,53 @@ export const ButtonContainer = styled.div`
         align-items: center;
     }
 `;
+
+export const DropdownContainer = styled.div`
+    position: relative;
+    width: 100%;
+`;
+
+export const DropdownHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+`;
+
+export const DropdownIcon = styled.img`
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+`;
+
+export const DropdownList = styled.ul`
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 5px 0 0 0;
+    padding: 0;
+    list-style: none;
+    z-index: 10;
+`;
+
+export const DropdownItem = styled.li`
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #f9f9f9;
+    }
+`;
