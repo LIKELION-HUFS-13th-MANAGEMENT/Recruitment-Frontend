@@ -10,7 +10,7 @@ import Header from './ui/components/header';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
