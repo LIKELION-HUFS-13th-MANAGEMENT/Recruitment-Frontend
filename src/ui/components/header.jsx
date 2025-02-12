@@ -6,8 +6,9 @@ import Logo1 from '../../assets/images/logo1.svg';
 import Menu from '../../assets/images/Menu.png';
 import Close from '../../assets/images/Close.png';
 import { useLogout } from '../../logic/hooks/useLogout';
+import axios from 'axios';
 
-const ADMIN_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NjM2MzMwLCJqdGkiOiJhZDEyMzUwMTExMzc0MDUzYTNhOTBhOGUzOWYzNzFkNiIsInVzZXJfaWQiOjF9.3ET-fZUrNZH—nY6as68tL9zCjiKg2w8QTJgTU_8UVg"
+const API_BASE_URL = "https://woodzverse.pythonanywhere.com"; 
 
 const Header = () => {
     const navigate = useNavigate();
@@ -17,14 +18,40 @@ const Header = () => {
     const [isAdmin, setIsAdmin] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [adminMessage, setAdminMessage] = useState("");
     
-    const syncToken = () => {
-        const updatedToken = localStorage.getItem("access_token");
-        setToken(updatedToken);
-        setIsAdmin(updatedToken === ADMIN_TOKEN);
+    const checkAdminStatus = async (accessToken) => { 
+        if (!accessToken) return;
+
+        try {
+            const response = await axios.get(`${API_BASE_URL}/member/state/`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (response.status === 200) {
+                if (response.data.message === "user is a superuser.") {
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
+                setAdminMessage(response.data.message); 
+            }
+        } catch (error) {
+            console.error("슈퍼유저 확인 중 오류 발생:", error);
+            setIsAdmin(false);
+            setAdminMessage("슈퍼유저 확인 실패"); 
+        }
     };
 
     useEffect(() => {
+        const syncToken = () => {
+            const updatedToken = localStorage.getItem("access_token");
+            setToken(updatedToken);
+            checkAdminStatus(updatedToken); 
+        };
+
         syncToken();
 
         const checkSubmissionStatus = () => {
@@ -55,15 +82,6 @@ const Header = () => {
             window.removeEventListener('logout', syncToken);
         };
     }, []);
-    
-
-    useEffect(() => {
-        if (token === ADMIN_TOKEN) { 
-            setIsAdmin(true);
-        } else {
-            setIsAdmin(false);
-        }
-    }, [token]);
 
     const handleLogin = () => {
         navigate(`/login`);
@@ -72,7 +90,7 @@ const Header = () => {
             if (updatedToken) {
                 clearInterval(checkLogin); 
                 setToken(updatedToken);
-                setIsAdmin(updatedToken === ADMIN_TOKEN);
+                checkAdminStatus(updatedToken);
             }
         }, 100); 
     };
@@ -82,6 +100,7 @@ const Header = () => {
             localStorage.removeItem("access_token");
             setToken(null);
             setIsAdmin(false);
+            setAdminMessage("");
             window.dispatchEvent(new Event('logout'));
         });
     };
