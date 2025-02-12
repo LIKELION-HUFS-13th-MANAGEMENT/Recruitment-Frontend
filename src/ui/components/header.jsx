@@ -112,9 +112,11 @@ const Header = () => {
             }}>
                 {token ? "로그아웃" : "로그인"}
             </H.ButtonLogin>
-                <H.ButtonWrite onClick={handleWriteOrList}>
-                    {isAdmin ? "지원서 조회하기" : isSubmitted ? "지원서 수정하기" : "지원서 작성하기"}
-                </H.ButtonWrite>
+            {token && ( 
+                    <H.ButtonWrite onClick={handleWriteOrList}>
+                        {isAdmin ? "지원서 조회하기" : isSubmitted ? "지원서 수정하기" : "지원서 작성하기"}
+                    </H.ButtonWrite>
+                )}
                 <H.ButtonHome onClick={handleHome}>HOME</H.ButtonHome>
             </H.MenuContainer>
             {isMenuOpen && (
@@ -129,7 +131,11 @@ const Header = () => {
                     }}>
                         {token ? "로그아웃" : "로그인"}
                     </H.ButtonLogin>
-                        <H.ButtonWrite onClick={handleWriteOrList}>{isAdmin ? "지원서 조회하기" : isSubmitted ? "지원서 수정하기" : "지원서 작성하기"}</H.ButtonWrite>
+                    {token && ( 
+                            <H.ButtonWrite onClick={handleWriteOrList}>
+                                {isAdmin ? "지원서 조회하기" : isSubmitted ? "지원서 수정하기" : "지원서 작성하기"}
+                            </H.ButtonWrite>
+                        )}
                         <H.ButtonHome onClick={handleHome}>HOME</H.ButtonHome>
                     </H.MenuContent>
                 </H.MenuPopupMobile>
