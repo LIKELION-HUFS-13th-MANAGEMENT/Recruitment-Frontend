@@ -31,7 +31,6 @@ export const Section = styled.div`
 export const SectionTitle = styled.div`
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 1%;
     margin-bottom: 5%;
 `;
 
