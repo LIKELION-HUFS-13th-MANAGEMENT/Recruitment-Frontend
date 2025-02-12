@@ -1,8 +1,20 @@
 {
-    "rewrites": [
-      {
-        "source": "/:path*",
-        "destination": "https://woodzverse.pythonanywhere.com/:path*"
-      }
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://woodzverse.pythonanywhere.com/api/:path*"
+    },
+    {
+      "source": "/member/:path*",
+      "destination": "https://woodzverse.pythonanywhere.com/member/:path*"
+    },
+    {
+      "source": "/appliance/:path*",
+      "destination": "https://woodzverse.pythonanywhere.com/appliance/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/"
+    }
+  ]
+}
