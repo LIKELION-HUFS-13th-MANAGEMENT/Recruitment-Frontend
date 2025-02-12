@@ -21,6 +21,7 @@ export const useLogout = () => {
       alert("로그아웃을 성공하였습니다")
       setIsLogout(true);
       localStorage.removeItem('submittedFormData');
+      localStorage.removeItem('applicationId')
       navigate("/")
     } catch (error) {
       console.log(error);
