@@ -115,16 +115,6 @@ const Write = () => {
         autoResize();
     };
 
-    // const handleTrackChange = (e) => {
-    //     const newFormData = {
-    //         ...formData,
-    //         track: parseInt(e.target.value),
-    //         answer5: "" 
-    //     };
-    //     setFormData(newFormData);
-    //     localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
-    // };
-
     const handleTrackChange = (value) => {
         const newFormData = { ...formData, track: value, answer5: "" };
         setFormData(newFormData);
@@ -200,7 +190,12 @@ const Write = () => {
     };
     
     const handleEdit = async () => {
-        if (!accessToken || !applicationId || !isSubmitted) {
+        if (!isSubmitted) {
+            alert("지원서를 먼저 제출해주세요.");
+            return;
+        }
+
+        if (!accessToken || !applicationId) {
             alert("수정할 지원서가 없습니다.");
             return;
         }
@@ -371,7 +366,17 @@ const Write = () => {
             </W.Section>
 
             <W.ButtonContainer>
-            <W.ReButton onClick={handleEdit}>수정</W.ReButton>
+            <W.ReButton 
+                onClick={() => {
+                    if (!isSubmitted) {
+                        alert("지원서를 먼저 제출해주세요.");
+                    } else {
+                        handleEdit();
+                    }
+                }}
+            >
+                수정
+            </W.ReButton>
             {!isSubmitted && (
                 <W.SubmitButton
                 onClick={handleSubmit}
@@ -381,7 +386,7 @@ const Write = () => {
                     cursor: formData.canSpendTime === "False" ? "not-allowed" : "pointer",
                 }}
                 >
-                최종 제출
+                제출
                 </W.SubmitButton>
             )}
             </W.ButtonContainer>
