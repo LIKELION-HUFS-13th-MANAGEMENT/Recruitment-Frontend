@@ -20,16 +20,19 @@ const ViewBox = ({
 	track,
 	created_at,
 	onClick,
+	student_number,
+	major_1,
 }) => {
 	return (
 		<Box onClick={onClick}>
 			<PerIcon />
 			<Inform>
 				<Apliname>
-					{user_fullname}
-					<Aplipart>
-						{getTrackName(track)} 파트
-					</Aplipart>{' '}
+					<Name>{user_fullname}</Name>
+					<Apliinfo>
+						{student_number} {major_1}
+					</Apliinfo>
+					<Aplipart>{getTrackName(track)} 파트</Aplipart>{' '}
 					{/* 🔥 변환된 값 출력 */}
 				</Apliname>
 				<Date>{created_at}</Date>
@@ -79,6 +82,8 @@ const Inform = styled.div`
 	font-size: 18px;
 	font-weight: 700;
 	width: 90%;
+	padding-top:10px;
+	padding-bottom:10px;
 	justify-content: space-between;
   @media only screen and (max-width: 600px) {
 		width: 80%;
@@ -89,8 +94,21 @@ const Apliname = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
+const Name = styled.div`
+	display: flex;
+	margin-bottom: 10px;
+`;
 const Aplipart = styled.div`
 	margin-top: 5px;
+	color: #fff;
+	font-family: Pretendard;
+	font-size: 14px;
+	font-weight: 500;
+`;
+const Apliinfo = styled.div`
+	display: flex;
+	flex-direction: row;
+	width: max-content;
 	color: #fff;
 	font-family: Pretendard;
 	font-size: 14px;

@@ -4,7 +4,7 @@ import {
 	useLocation,
 	useParams,
 	useNavigate,
-} from 'react-router-dom'; // useNavigate 추가
+} from 'react-router-dom';
 
 const ApplianceSubmit = () => {
 	// 상태 관리
@@ -12,29 +12,25 @@ const ApplianceSubmit = () => {
 		useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [userInfo, setUserInfo] = useState(null); // 유저 정보 상태 추가
 
 	// 라우터 훅
 	const { id } = useParams();
 	const location = useLocation();
-	const navigate = useNavigate(); // 네비게이션 추가
+	const navigate = useNavigate();
 
 	// API 설정
 	const API_BASE_URL =
 		'https://woodzverse.pythonanywhere.com';
 	const numericId = Number(id);
 	const API_ENDPOINT = `/appliance/submit/${numericId}/`;
+	const API_INFO_ENDPOINT = '/member/info/';
 
-	// location.state에서 전달받은 데이터 추출 (FormListView에서 전달)
+	// FormListView에서 전달된 데이터
 	const { user_fullname = '이름 없음', track } =
 		location.state || {};
 
-	// 디버깅을 위한 로그
-	//console.log('Location state:', location.state);
-	//console.log('User fullname:', user_fullname);
-	//console.log('Track:', track);
-
 	useEffect(() => {
-		// 토큰 확인 로직 추가
 		const userToken = localStorage.getItem('access_token');
 
 		if (!userToken) {
@@ -45,18 +41,42 @@ const ApplianceSubmit = () => {
 			return;
 		}
 
-		const fetchData = async () => {
+		// 유저 정보 가져오는 함수
+		const fetchUserInfo = async (userToken) => {
 			try {
-				//console.log(
-				//	'API 호출:',
-				//	`${API_BASE_URL}${API_ENDPOINT}`
-				//);
+				const response = await fetch(
+					`${API_BASE_URL}${API_INFO_ENDPOINT}`,
+					{
+						headers: {
+							Authorization: `Bearer ${userToken}`,
+						},
+					}
+				);
 
+				if (!response.ok) {
+					throw new Error(
+						`유저 정보 로드 실패: ${response.status}`
+					);
+				}
+
+				const data = await response.json();
+				setUserInfo(data);
+
+				// 디버깅 로그 추가
+				console.log('유저 정보 가져오기 성공:', data);
+			} catch (error) {
+				console.error('유저 정보 가져오기 오류:', error);
+				setError(error.message);
+			}
+		};
+
+		// 지원서 데이터 가져오는 함수
+		const fetchApplicationData = async (userToken) => {
+			try {
 				const response = await fetch(
 					`${API_BASE_URL}${API_ENDPOINT}`,
 					{
 						headers: {
-							// ManagerAccessToken 대신 userToken 사용
 							Authorization: `Bearer ${userToken}`,
 						},
 					}
@@ -69,19 +89,27 @@ const ApplianceSubmit = () => {
 				}
 
 				const data = await response.json();
-				//console.log('Received application data:', data);
 				setApplicationData(data);
+
+				// 디버깅 로그 추가
+				console.log('지원서 데이터 가져오기 성공:', data);
 			} catch (error) {
-				console.error('Error fetching data:', error);
+				console.error(
+					'지원서 데이터 가져오기 오류:',
+					error
+				);
 				setError(error.message);
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
-		fetchData();
-	}, [id, navigate, API_ENDPOINT]); // 의존성 배열 수정
+		// API 호출 실행
+		fetchUserInfo(userToken);
+		fetchApplicationData(userToken);
+	}, [id, navigate]);
 
+	// 지원 트랙 변환 함수
 	const getTrackName = (track) => {
 		switch (track) {
 			case 0:
@@ -107,17 +135,12 @@ const ApplianceSubmit = () => {
 				<Title>지원서 상세</Title>
 				<QuestionSection>
 					<InfoSection>
-						<InfoSection1>
-							<InfoLabel>
-								이름
-								{/* user_fullname 표시 방식 수정 */}
-								<InfoValue>{user_fullname}</InfoValue>
-							</InfoLabel>
+						<InfoLabel>
+							<Names>{user_fullname}</Names>
 							<InfoValue>
-								{/* track 정보 표시 방식 수정 */}
 								{getTrackName(applicationData.track)} 파트
 							</InfoValue>
-						</InfoSection1>
+						</InfoLabel>
 					</InfoSection>
 
 					<Question>
@@ -137,12 +160,14 @@ const ApplianceSubmit = () => {
 						작성해주세요. (500자 이내)
 					</Question>
 					<Answer>{applicationData.answer3}</Answer>
+
 					<Question>
 						4. (선택사항) 경험을 멋쟁이사자처럼 대학에서
 						어떻게 적용할 수 있을지 작성해주세요. (300자
 						이내)
 					</Question>
 					<Answer>{applicationData.answer4}</Answer>
+
 					<Question>
 						5. 좋은 개발자란 무엇인지, 그리고 그러한
 						개발자가 되기 위해 어떤 노력을 하고 싶은지
@@ -153,11 +178,12 @@ const ApplianceSubmit = () => {
 					<Question>
 						6. 한 주에 몇 시간 정도 활동이 가능하신가요?
 					</Question>
-					<Answer>
+					<Answer6>
 						{applicationData.canSpendTime
 							? '많은 시간 투자 가능'
 							: '많은 시간 투자 불가능'}
-					</Answer>
+					</Answer6>
+
 					<Question>
 						7. 개발/디자인 관련 블로그나 포트폴리오가 있다면
 						작성해 주세요.
@@ -244,7 +270,6 @@ const InfoSection = styled.div`
 		width: 100%;
 	}
 `;
-const InfoSection1 = styled.div``;
 
 const InfoLabel = styled.div`
 	display: flex;
@@ -252,7 +277,6 @@ const InfoLabel = styled.div`
 	color: #fff;
 	font-family: Pretendard;
 	font-size: 16px;
-	font-weight: 700;
 	margin-bottom: 8px;
 	@media only screen and (max-width: 600px) {
 		width: 76vw;
@@ -262,14 +286,15 @@ const InfoLabel = styled.div`
 const InfoValue = styled.div`
 	color: #fff;
 	font-family: Pretendard;
-	font-size: 16px;
-	margin-bottom: 16px;
-
-	&:last-child {
-		margin-bottom: 0;
-	}
+	font-size: 15px;
+	font-weight: 400;
+	margin-bottom: 0;
+	align-self: center;
 `;
-
+const Names = styled.div`
+	font-size: 23px;
+	font-weight: 700;
+`;
 const QuestionSection = styled.div`
 	width: 80%;
 	display: flex;
@@ -310,6 +335,34 @@ const Answer = styled.div`
 	white-space: pre-wrap;
 	word-break: break-word;
 	line-height: 1.5;
+
+	&:lang(en) {
+		font-family: 'Noto Sans', sans-serif;
+	}
+	&:lang(ko) {
+		font-family: 'Pretendard', sans-serif;
+	}
+
+	@media only screen and (max-width: 600px) {
+		width: 78vw;
+	}
+`;
+
+const Answer6 = styled.div`
+	border-radius: 14px;
+	background: #fff;
+	display: flex;
+	min-width: 340px;
+	width: 100%;
+	height: auto;
+	padding: 18px;
+	align-items: flex-start;
+	gap: 10px;
+	margin-bottom: 20px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	line-height: 1.5;
+	color: #007aff;
 
 	&:lang(en) {
 		font-family: 'Noto Sans', sans-serif;
