@@ -63,9 +63,9 @@ const ApplianceSubmit = () => {
 				setUserInfo(data);
 
 				// 디버깅 로그 추가
-				console.log('유저 정보 가져오기 성공:', data);
+				//console.log('유저 정보 가져오기 성공:', data);
 			} catch (error) {
-				console.error('유저 정보 가져오기 오류:', error);
+				//console.error('유저 정보 가져오기 오류:', error);
 				setError(error.message);
 			}
 		};
@@ -92,12 +92,12 @@ const ApplianceSubmit = () => {
 				setApplicationData(data);
 
 				// 디버깅 로그 추가
-				console.log('지원서 데이터 가져오기 성공:', data);
+				//console.log('지원서 데이터 가져오기 성공:', data);
 			} catch (error) {
-				console.error(
-					'지원서 데이터 가져오기 오류:',
-					error
-				);
+				//console.error(
+				//	'지원서 데이터 가져오기 오류:',
+				//	error
+				//);
 				setError(error.message);
 			} finally {
 				setIsLoading(false);
@@ -286,8 +286,8 @@ const InfoLabel = styled.div`
 const InfoValue = styled.div`
 	color: #fff;
 	font-family: Pretendard;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 15.5px;
+	font-weight: 500;
 	margin-bottom: 0;
 	align-self: center;
 `;
