@@ -50,6 +50,8 @@ const Header = () => {
             const updatedToken = localStorage.getItem("access_token");
             setToken(updatedToken);
             checkAdminStatus(updatedToken); 
+            const hasSubmittedForm = !!localStorage.getItem("submittedFormData") && !!localStorage.getItem("applicationId");
+            setIsSubmitted(hasSubmittedForm);
         };
 
         syncToken();

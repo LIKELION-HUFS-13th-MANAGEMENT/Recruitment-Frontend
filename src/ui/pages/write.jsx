@@ -191,14 +191,14 @@ const Write = () => {
     };
     
     const handleEdit = async () => {
-        if (!accessToken || !applicationId) {
+        if (!accessToken || !applicationId || !isSubmitted) {
             alert("수정할 지원서가 없습니다.");
             return;
         }
 
         try {
             const response = await axios.put(
-                `https://woodzverse.pythonanywhere.com/appliance/edit/${applicationId}/`,
+                "https://woodzverse.pythonanywhere.com/appliance/edit/",
                 formData,
                 {
                     headers: {
@@ -218,6 +218,26 @@ const Write = () => {
             alert("수정에 실패했습니다. 다시 시도해주세요.");
         }
     };
+
+    useEffect(() => {
+        if (accessToken) {
+            axios.get("https://woodzverse.pythonanywhere.com/appliance/edit/", {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                }
+            }).then(response => {
+                if (response.status === 200) {
+                    setFormData(response.data);
+                    setApplicationId(response.data.id);
+                    setIsSubmitted(true);
+                    localStorage.setItem('submittedFormData', JSON.stringify(response.data));
+                    localStorage.setItem('applicationId', response.data.id);
+                }
+            }).catch(error => {
+                console.error("지원서 불러오기 실패:", error);
+            });
+        }
+    }, [accessToken]);
 
     return (
     <W.Container>
