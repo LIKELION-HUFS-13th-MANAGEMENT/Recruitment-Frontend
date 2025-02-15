@@ -34,7 +34,7 @@ const FormListView = () => {
 
 	const fetchUserInfo = async (userToken) => {
 		try {
-			console.log('Fetching user info...'); // 디버깅 로그 추가
+			//console.log('Fetching user info...'); // 디버깅 로그 추가
 			const response = await fetch(
 				`${API_BASE_URL}${API_INFO_ENDPOINT}`,
 				{
@@ -49,17 +49,17 @@ const FormListView = () => {
 			}
 
 			const data = await response.json();
-			console.log('User Info Response:', data); // 응답 데이터 확인
+			//console.log('User Info Response:', data); // 응답 데이터 확인
 			setUserInfo(data);
 		} catch (error) {
-			console.error('유저 정보 가져오기 오류:', error);
-			setError(error.message);
+			//console.error('유저 정보 가져오기 오류:', error);
+			//setError(error.message);
 		}
 	};
 
 	const fetchData = async (userToken) => {
 		try {
-			console.log('Fetching applications list...'); // 디버깅 로그 추가
+			//console.log('Fetching applications list...'); // 디버깅 로그 추가
 			const response = await fetch(
 				`${API_BASE_URL}${API_LIST_ENDPOINT}`,
 				{
@@ -68,19 +68,18 @@ const FormListView = () => {
 			);
 
 			if (!response.ok) {
-				throw new Error(
-					`서버 응답 상태: ${response.status}`
-				);
+				throw new Error();
+				//`서버 응답 상태: ${response.status}`
 			}
 
 			const data = await response.json();
-			console.log('Applications List Response:', data); // 응답 데이터 확인
+			//console.log('Applications List Response:', data); // 응답 데이터 확인
 			setFormData(Array.isArray(data) ? data : []);
 			setIsLoading(false);
 		} catch (error) {
-			console.error('데이터 가져오기 오류:', error);
-			setError(error.message);
-			setIsLoading(false);
+			//console.error('데이터 가져오기 오류:', error);
+			//setError(error.message);
+			//setIsLoading(false);
 		}
 	};
 	const filteredData = formData.filter(
