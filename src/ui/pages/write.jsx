@@ -5,15 +5,19 @@ import * as W from "../styles/writeStyles";
 import Dropdown from '../../assets/images/dropdown_icon.png';
 
 const Write = () => {
-    const [formData, setFormData] = useState({
-        track: "",
-        answer1:"",
-        answer2:"",
-        answer3:"",
-        answer4:"",
-        answer5:"",
-        canSpendTime: "",
-        portfolio:""
+    const [formData, setFormData] = useState(() => {
+        const savedData = localStorage.getItem('submittedFormData');
+        const parsedData = savedData ? JSON.parse(savedData) : {};
+        return {
+            track: parsedData.track || "",
+            answer1: parsedData.answer1 || "",
+            answer2: parsedData.answer2 || "",
+            answer3: parsedData.answer3 || "",
+            answer4: parsedData.answer4 || "",
+            answer5: parsedData.answer5 || "",
+            canSpendTime: parsedData.canSpendTime === true || parsedData.canSpendTime === "true" || parsedData.canSpendTime === "true" ? true : false,
+            portfolio: parsedData.portfolio || ""
+        };
     });
 
     const [isEditMode, setIsEditMode] = useState(false);  
@@ -41,10 +45,14 @@ const Write = () => {
     useLayoutEffect(() => {
         const savedFormData = localStorage.getItem('submittedFormData');
         const savedApplicationId = localStorage.getItem('applicationId');
-
-        if (savedFormData) {
-            setFormData(JSON.parse(savedFormData));
+        const savedData = localStorage.getItem('submittedFormData');
+        if (savedData) {
+            const parsedData = JSON.parse(savedData);
+            if (parsedData.canSpendTime === true || parsedData.canSpendTime === "true") {
+                setFormData(prev => ({ ...prev, canSpendTime: "True" }));
+            }
         }
+
         if (savedApplicationId) {
             setIsSubmitted(true);
         }
@@ -59,10 +67,10 @@ const Write = () => {
             const savedApplicationId = localStorage.getItem('applicationId');
             
             if (savedFormData) {
-                const parsedFormData = JSON.parse(savedFormData);
-                setFormData(parsedFormData);
+                const parsedData = JSON.parse(savedFormData);
+                setFormData(parsedData); 
             }
-
+    
             if (savedApplicationId) {
                 setIsSubmitted(true);
                 setApplicationId(savedApplicationId); 
@@ -70,9 +78,9 @@ const Write = () => {
                 setIsSubmitted(false);
                 setApplicationId(null); 
             }
-
+    
             setIsSubmitted(!!savedApplicationId);
-
+    
             setTimeout(() => {
                 textareasRef.current.forEach((textarea) => {
                     if (textarea) {
@@ -82,23 +90,24 @@ const Write = () => {
                 });
             }, 0);
         };
-
+    
         handleStorageChange();
-
+    
         window.addEventListener('storage', handleStorageChange);
         window.addEventListener('formSubmitted', handleStorageChange);
-
+    
         return () => {
             window.removeEventListener('storage', handleStorageChange);
             window.removeEventListener('formSubmitted', handleStorageChange);
         };
     }, []);
+    
 
     const handleChange = (e, index) => {
         const { name, value, type } = e.target;
         const newFormData = {
             ...formData,
-            [name]: type === "radio" ? value : value
+            [name]: type === "radio" ? value === "True" : value
         };
         setFormData(newFormData);
         localStorage.setItem('submittedFormData', JSON.stringify(newFormData));
@@ -328,7 +337,7 @@ const Write = () => {
                 type="radio"
                 name="canSpendTime"
                 value="True"
-                checked={formData.canSpendTime === "True"}
+                checked={formData.canSpendTime === true || formData.canSpendTime === "True"}
                 onChange={handleChange}
                 />
                 예
