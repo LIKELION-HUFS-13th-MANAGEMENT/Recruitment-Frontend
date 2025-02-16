@@ -20,8 +20,11 @@ const ViewBox = ({
 	track,
 	created_at,
 	onClick,
-	student_number,
-	major_1,
+	user_student_number,
+	major1,
+	major2,
+	grade,
+	phone,
 }) => {
 	return (
 		<Box onClick={onClick}>
@@ -29,13 +32,20 @@ const ViewBox = ({
 			<Inform>
 				<Apliname>
 					<Name>{user_fullname}</Name>
-					<Apliinfo>
-						{student_number} {major_1}
-					</Apliinfo>
-					<Aplipart>{getTrackName(track)} 파트</Aplipart>{' '}
-					{/* 🔥 변환된 값 출력 */}
+					<Column>{grade}학년</Column>
+					{/*<Column>{user_student_number}</Column>*/}
 				</Apliname>
-				<Date>{created_at}</Date>
+				<Apliname>
+					<Column> {phone}</Column>
+					<Column2>
+						<Major>전공: {major1}</Major>
+						<Major>부전공: {major2}</Major>
+					</Column2>
+				</Apliname>
+				<Aplipart>
+					{getTrackName(track)} 파트
+					<Date>{created_at}</Date>
+				</Aplipart>{' '}
 			</Inform>
 		</Box>
 	);
@@ -76,43 +86,61 @@ const PerIcon = styled.div`
 `;
 const Inform = styled.div`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	color: #fff;
 	font-family: Pretendard;
-	font-size: 18px;
-	font-weight: 700;
 	width: 90%;
-	padding-top:10px;
+	padding-top:15px;
 	padding-bottom:10px;
 	justify-content: space-between;
   @media only screen and (max-width: 600px) {
 		width: 80%;
-/
+		/
 	}
-`;
+	`;
 const Apliname = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: space-between;
 `;
 const Name = styled.div`
 	display: flex;
+	flex-direction: column;
 	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: 700;
+`;
+const Column = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	font-size: 14px;
+	font-weight: 500;
+`;
+const Major = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	font-size: 14px;
+	font-weight: 500;
+`;
+const Column2 = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	font-size: 14px;
+	/*gap: 20px;*/
+	font-weight: 500;
 `;
 const Aplipart = styled.div`
-	margin-top: 5px;
+	margin-top: 10px;
 	color: #fff;
 	font-family: Pretendard;
 	font-size: 14px;
 	font-weight: 500;
-`;
-const Apliinfo = styled.div`
 	display: flex;
-	flex-direction: row;
-	width: max-content;
-	color: #fff;
-	font-family: Pretendard;
-	font-size: 14px;
-	font-weight: 500;
+	width: 100%;
+	justify-content: space-between;
 `;
 const Date = styled.div`
 	color: #fff;
