@@ -147,6 +147,11 @@ const Write = () => {
             return;
         }
     
+        if (formData.canSpendTime !== true && formData.canSpendTime !== "True") {
+            alert("'예'를 선택해야 지원서를 제출할 수 있습니다.");
+            return;
+        }
+
         console.log("Access Token:", accessToken); 
     
         try {
@@ -174,9 +179,11 @@ const Write = () => {
             }
         } catch (error) {
             console.error("제출 중 오류 발생:", error);
-    
+
             if (error.response) {
-                if (error.response.status === 400 && error.response.data.error === "이미 신청서를 작성하셨습니다.") {
+                if (error.response.status === 403 && error.response.data.error === "제출 기한이 지났습니다.") {
+                    alert("제출 기한이 지났습니다. 지원서를 제출할 수 없습니다.");
+                } else if (error.response.status === 400 && error.response.data.error === "이미 신청서를 작성하셨습니다.") {
                     alert("이미 신청서를 작성하셨습니다.");
                 } else if (error.response.status === 401) {
                     alert("인증 오류: 다시 로그인해주세요.");

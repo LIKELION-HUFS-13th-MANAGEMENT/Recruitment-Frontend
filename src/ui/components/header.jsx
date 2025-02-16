@@ -59,7 +59,7 @@ const Header = () => {
         const checkSubmissionStatus = () => {
             const appId = localStorage.getItem("applicationId");
             console.log("[Header] applicationId:", appId);
-            setIsSubmitted(!!appId); 
+            setIsSubmitted(appId ? true : false);
         };
     
         checkSubmissionStatus();
@@ -154,7 +154,7 @@ const Header = () => {
                     </H.ButtonLogin>
                     {token && ( 
                             <H.ButtonWrite onClick={handleWriteOrList}>
-                                {isAdmin ? "지원서 조회하기" : isSubmitted ? "지원서 수정하기" : "지원서 작성하기"}
+                                {isAdmin ? "지원서 조회하기" : isSubmitted === false ? "지원서 작성하기" : "지원서 수정하기"}
                             </H.ButtonWrite>
                         )}
                         <H.ButtonHome onClick={handleHome}>HOME</H.ButtonHome>
