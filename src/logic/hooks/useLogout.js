@@ -15,7 +15,7 @@ export const useLogout = () => {
           },
         }
       );
-      console.log(response);
+      //console.log(response);
       localStorage.removeItem('access_token');
       window.dispatchEvent(new Event('storage'));
       alert("로그아웃을 성공하였습니다")
@@ -24,8 +24,8 @@ export const useLogout = () => {
       localStorage.removeItem('applicationId')
       navigate("/")
     } catch (error) {
-      console.log(error);
-      console.log(token);
+      //console.log(error);
+      //console.log(token);
     }
   };
 

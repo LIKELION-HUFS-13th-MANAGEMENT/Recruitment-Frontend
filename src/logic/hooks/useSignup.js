@@ -18,12 +18,10 @@ export const useSignup = () => {
           major_1: major,
           major_2: doubleMajor
         })
-        console.log(response.data)
         alert("회원가입을 성공하였습니다")
         navigate('/');
         
       } catch (error) {
-        console.error('Signup Error:', error.response ? error.response.data : error)
         alert("회원가입을 실패하였습니다")
       }
     }, []

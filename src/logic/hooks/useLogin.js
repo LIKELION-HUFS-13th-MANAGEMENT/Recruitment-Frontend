@@ -24,10 +24,7 @@ const useLogin = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log('서버 응답 상태 코드:', response.status);
-
       const data = await response.json();
-      console.log('서버 응답 데이터:', data);
 
       if (!response.ok) {
         const errorMessage = data.error?.[0] || '로그인에 실패했습니다.';

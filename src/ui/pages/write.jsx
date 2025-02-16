@@ -151,8 +151,6 @@ const Write = () => {
             alert("'예'를 선택해야 지원서를 제출할 수 있습니다.");
             return;
         }
-
-        console.log("Access Token:", accessToken); 
     
         try {
             const response = await axios.post(
@@ -174,11 +172,9 @@ const Write = () => {
                 
                 localStorage.setItem('submittedFormData', JSON.stringify(formData));
                 localStorage.setItem('applicationId', newAppId);
-                console.log("[Write] applicationId 저장:", newAppId);
                 window.dispatchEvent(new Event('applicationSubmitted'));
             }
         } catch (error) {
-            console.error("제출 중 오류 발생:", error);
 
             if (error.response) {
                 if (error.response.status === 403 && error.response.data.error === "제출 기한이 지났습니다.") {
@@ -222,10 +218,8 @@ const Write = () => {
             if (response.status === 200) {
                 alert("수정이 완료되었습니다!");
                 localStorage.setItem('submittedFormData', JSON.stringify(formData));
-                console.log(response.data);
             }
         } catch (error) {
-            console.error("수정 중 오류 발생:", error);
             alert("수정에 실패했습니다. 다시 시도해주세요.");
         }
     };
@@ -245,7 +239,7 @@ const Write = () => {
                     localStorage.setItem('applicationId', response.data.id);
                 }
             }).catch(error => {
-                console.error("지원서 불러오기 실패:", error);
+                //console.error("지원서 불러오기 실패:", error);
             });
         }
     }, [accessToken]);

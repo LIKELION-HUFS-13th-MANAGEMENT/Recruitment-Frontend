@@ -11,8 +11,6 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('입력된 이메일:', email);
-    console.log('입력된 비밀번호:', password);
 
     // 입력 검증
     if (!email) return alert('이메일을 입력해주세요.');

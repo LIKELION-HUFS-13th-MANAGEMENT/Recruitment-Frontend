@@ -75,23 +75,18 @@ const SignupPage = () => {
   const { handleSignup } = useSignup();
 
   useEffect(() => {
-    console.log(handleSignup);
   }, []);
 
   const handleChange = (e, index) => {
-    console.log(e.target.value);
     categorySetter[index](e.target.value);
     if (e.target.value.length > 0) {
       emptyArray[index] = false;
     } else {
       emptyArray[index] = true;
     }
-    console.log(emptyArray);
-    console.log(emptyArray.indexOf(false));
   };
 
   useEffect(() => {
-    console.log(isChecked);
   }, [isChecked]);
 
   const PrivacyModal = () => {

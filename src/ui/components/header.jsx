@@ -39,7 +39,6 @@ const Header = () => {
                 setAdminMessage(response.data.message); 
             }
         } catch (error) {
-            console.error("슈퍼유저 확인 중 오류 발생:", error);
             setIsAdmin(false);
             setAdminMessage("슈퍼유저 확인 실패"); 
         }
@@ -58,7 +57,6 @@ const Header = () => {
 
         const checkSubmissionStatus = () => {
             const appId = localStorage.getItem("applicationId");
-            console.log("[Header] applicationId:", appId);
             setIsSubmitted(appId ? true : false);
         };
     
@@ -66,7 +64,6 @@ const Header = () => {
     
         const handleStorageChange = (event) => {
             if (event.key === "access_token" || event.key === "applicationId") {
-                console.log("Storage changed:", event.key);
                 syncToken();
                 setIsSubmitted(!!localStorage.getItem("applicationId"));
             }
