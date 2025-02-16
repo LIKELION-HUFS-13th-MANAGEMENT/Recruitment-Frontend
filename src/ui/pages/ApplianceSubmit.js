@@ -180,12 +180,12 @@ const ApplianceSubmit = () => {
 export default ApplianceSubmit;
 const ViewPage = styled.div`
 	display: flex;
-	justify-content: center; /* 중앙 정렬 */
+	justify-content: center;
 	align-items: flex-start;
 	min-height: 100vh;
-	width: 90%;
+	width: 100%;
 	background-color: #f2f4f6;
-	padding: 20px; /* 화면 여백 */
+	padding-top: 20px;
 `;
 
 const Body = styled.div`
