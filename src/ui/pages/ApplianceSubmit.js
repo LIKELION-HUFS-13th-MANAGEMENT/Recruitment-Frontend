@@ -110,22 +110,22 @@ const ApplianceSubmit = () => {
 				<QuestionSection>
 					<InfoSection>
 						<InfoLabel>
-							<Names>{userInfo?.fullname || '이름 없음'}</Names>
-							<Track>{getTrackName(applicationData.track)} 파트</Track>
+							<Names>{applicationData?.user_fullname || '이름 없음'}</Names>
+							<Track>{getTrackName(applicationData?.track)}</Track>
 						</InfoLabel>
 						<InfoLabel>
-							<InfoValue>전화번호: {userInfo?.phone || '정보 없음'}</InfoValue>
+							<InfoValue>전화번호: {applicationData?.user_phone || '정보 없음'}</InfoValue>
 						</InfoLabel>
 						<InfoLabel>
-							<InfoValue>이메일: {userInfo?.email || '정보 없음'}</InfoValue>
+							<InfoValue>이메일: {applicationData?.user_email || '정보 없음'}</InfoValue>
 						</InfoLabel>
 						<InfoLabel>
-							<InfoValue>학번: {userInfo?.student_number || '정보 없음'}</InfoValue>
-							<InfoValue> {userInfo?.grade || '정보 없음'}학년</InfoValue>
+							<InfoValue>학번: {applicationData?.user_student_number || '정보 없음'}</InfoValue>
+							<InfoValue> {applicationData?.user_grade || '정보 없음'}학년</InfoValue>
 						</InfoLabel>
 						<InfoLabel>
-							<InfoValue>전공: {userInfo?.major_1 || '정보 없음'}</InfoValue>
-							<InfoValue>이중전공: {userInfo.major_2 || '정보 없음'}</InfoValue>
+							<InfoValue>전공: {applicationData?.user_major_1 || '정보 없음'}</InfoValue>
+							<InfoValue>이중전공: {applicationData?.user_major_2 || '정보 없음'}</InfoValue>
 						</InfoLabel>
 					</InfoSection>
 
