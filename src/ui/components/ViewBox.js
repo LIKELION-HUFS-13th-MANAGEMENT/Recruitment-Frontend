@@ -74,7 +74,7 @@ const Box = styled.div`
 	}
 	@media only screen and (max-width: 600px) {
 		min-width: 80vw;
-		height: 12vw;
+		height: 15vw;
 	}
 `;
 const PerIcon = styled.div`
