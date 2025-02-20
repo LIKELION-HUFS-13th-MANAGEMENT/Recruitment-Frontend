@@ -39,7 +39,7 @@ const ViewBox = ({
 					<Column> {phone}</Column>
 					<Column2>
 						<Major>전공: {major1}</Major>
-						<Major>부전공: {major2}</Major>
+						<Major>이중전공: {major2 ? major2.slice(0, 11) + '...' : ''}</Major>{' '}
 					</Column2>
 				</Apliname>
 				<Aplipart>
@@ -116,20 +116,24 @@ const Column = styled.div`
 	align-self: center;
 	font-size: 14px;
 	font-weight: 500;
+	white-space: nowrap;
 `;
 const Major = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-self: center;
+	align-self: flex-end;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	font-size: 14px;
 	font-weight: 500;
 `;
+
 const Column2 = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-self: center;
 	font-size: 14px;
-	/*gap: 20px;*/
 	font-weight: 500;
 `;
 const Aplipart = styled.div`
